@@ -1,0 +1,37 @@
+{
+  "name": "sanctuary-int",
+  "version": "0.0.0",
+  "description": "A collection of functions which operate on 32-bit signed integers",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/plaid/sanctuary-int.git"
+  },
+  "main": "index.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "functional",
+    "int",
+    "integer",
+    "sanctuary",
+    "types"
+  ],
+  "dependencies": {},
+  "ignore": [
+    "/.git/",
+    "/bower_components/",
+    "/coverage/",
+    "/node_modules/",
+    "/scripts/",
+    "/test/",
+    "/.*",
+    "/CONTRIBUTING.md",
+    "/Makefile",
+    "/circle.yml",
+    "/package.json"
+  ]
+}

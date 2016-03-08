@@ -18,7 +18,7 @@
     "jsverify": "0.7.x",
     "mocha": "2.x.x",
     "ramda": "0.19.x",
-    "transcribe": "0.3.x",
+    "transcribe": "0.4.x",
     "xyz": "0.5.x"
   },
   "files": [

@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/plaid/sanctuary-int.git"
+    "url": "git://github.com/sanctuary-js/sanctuary-int.git"
   },
   "main": "index.js",
   "moduleType": [

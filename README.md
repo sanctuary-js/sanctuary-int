@@ -4,16 +4,16 @@ A collection of functions which operate on 32-bit signed integers.
 
 ## API
 
-<h4 name="Int"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L26">Int :: Type</a></code></h4>
+<h4 name="Int"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L26">Int :: Type</a></code></h4>
 
 The Int type represents integers in the range [-2^31 .. 2^31).
 
-<h4 name="NonZeroInt"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L37">NonZeroInt :: Type</a></code></h4>
+<h4 name="NonZeroInt"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L37">NonZeroInt :: Type</a></code></h4>
 
 The NonZeroInt type represents non-zero integers in the range
 [-2^31 .. 2^31).
 
-<h4 name="add"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L50">add :: Int -> Int -> Int</a></code></h4>
+<h4 name="add"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L50">add :: Int -> Int -> Int</a></code></h4>
 
 Returns the sum of its two arguments.
 
@@ -22,7 +22,7 @@ Returns the sum of its two arguments.
 3
 ```
 
-<h4 name="sub"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L64">sub :: Int -> Int -> Int</a></code></h4>
+<h4 name="sub"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L64">sub :: Int -> Int -> Int</a></code></h4>
 
 Returns the result of subtracting its second argument from its first
 argument.
@@ -32,7 +32,7 @@ argument.
 -1
 ```
 
-<h4 name="mul"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L79">mul :: Int -> Int -> Int</a></code></h4>
+<h4 name="mul"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L79">mul :: Int -> Int -> Int</a></code></h4>
 
 Returns the product of its two arguments.
 
@@ -41,7 +41,7 @@ Returns the product of its two arguments.
 42
 ```
 
-<h4 name="quot"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L93">quot :: Int -> NonZeroInt -> Int</a></code></h4>
+<h4 name="quot"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L93">quot :: Int -> NonZeroInt -> Int</a></code></h4>
 
 Returns the result of dividing its first argument by its second
 argument, truncating towards zero.
@@ -64,7 +64,7 @@ See also [`div`](#div).
 8
 ```
 
-<h4 name="rem"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L121">rem :: Int -> NonZeroInt -> Int</a></code></h4>
+<h4 name="rem"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L121">rem :: Int -> NonZeroInt -> Int</a></code></h4>
 
 Integer remainder, satisfying:
 
@@ -88,7 +88,7 @@ See also [`mod`](#mod).
 -2
 ```
 
-<h4 name="div"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L150">div :: Int -> NonZeroInt -> Int</a></code></h4>
+<h4 name="div"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L150">div :: Int -> NonZeroInt -> Int</a></code></h4>
 
 Returns the result of dividing its first argument by its second
 argument, truncating towards negative infinity.
@@ -111,7 +111,7 @@ See also [`quot`](#quot).
 8
 ```
 
-<h4 name="mod"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L178">mod :: Int -> NonZeroInt -> Int</a></code></h4>
+<h4 name="mod"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L178">mod :: Int -> NonZeroInt -> Int</a></code></h4>
 
 Integer modulus, satisfying:
 
@@ -135,7 +135,7 @@ See also [`rem`](#rem).
 -2
 ```
 
-<h4 name="and"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L207">and :: Int -> Int -> Int</a></code></h4>
+<h4 name="and"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L207">and :: Int -> Int -> Int</a></code></h4>
 
 [Bitwise AND][&]. Returns an Int with a one at each bit position at
 which both arguments have a one.
@@ -145,7 +145,7 @@ which both arguments have a one.
 8
 ```
 
-<h4 name="or"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L222">or :: Int -> Int -> Int</a></code></h4>
+<h4 name="or"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L222">or :: Int -> Int -> Int</a></code></h4>
 
 [Bitwise OR][|]. Returns an Int with a one at each bit position at
 which at least one argument has a one.
@@ -155,7 +155,7 @@ which at least one argument has a one.
 14
 ```
 
-<h4 name="xor"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L237">xor :: Int -> Int -> Int</a></code></h4>
+<h4 name="xor"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L237">xor :: Int -> Int -> Int</a></code></h4>
 
 [Bitwise XOR][^]. Returns an Int with a one at each bit position at
 which exactly one argument has a one.
@@ -165,7 +165,7 @@ which exactly one argument has a one.
 6
 ```
 
-<h4 name="not"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L252">not :: Int -> Int</a></code></h4>
+<h4 name="not"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L252">not :: Int -> Int</a></code></h4>
 
 [Bitwise NOT][~], satisfying:
 
@@ -176,7 +176,7 @@ which exactly one argument has a one.
 -43
 ```
 
-<h4 name="even"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L268">even :: Int -> Boolean</a></code></h4>
+<h4 name="even"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L268">even :: Int -> Boolean</a></code></h4>
 
 Returns `true` if its argument is even; `false` if it is odd.
 
@@ -185,7 +185,7 @@ Returns `true` if its argument is even; `false` if it is odd.
 true
 ```
 
-<h4 name="odd"><code><a href="https://github.com/plaid/sanctuary-int/blob/v0.1.0/index.js#L282">odd :: Int -> Boolean</a></code></h4>
+<h4 name="odd"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v0.1.0/index.js#L282">odd :: Int -> Boolean</a></code></h4>
 
 Returns `true` if its argument is odd; `false` if it is even.
 

@@ -12,12 +12,12 @@
   },
   "devDependencies": {
     "doctest": "0.10.x",
+    "eslint": "2.9.x",
     "istanbul": "0.4.x",
-    "jscs": "2.7.x",
-    "jshint": "2.8.x",
     "jsverify": "0.7.x",
     "mocha": "2.x.x",
     "ramda": "0.19.x",
+    "sanctuary-style": "0.1.x",
     "transcribe": "0.4.x",
     "xyz": "0.5.x"
   },

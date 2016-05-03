@@ -4,9 +4,7 @@
 //.
 //. ## API
 
-/* global define, self */
-
-;(function(f) {
+(function(f) {
 
   'use strict';
 

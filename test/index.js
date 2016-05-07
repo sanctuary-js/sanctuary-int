@@ -1,8 +1,5 @@
 'use strict';
 
-/* global describe, it */
-/* jshint -W053 */
-
 var assert = require('assert');
 
 var jsc = require('jsverify');

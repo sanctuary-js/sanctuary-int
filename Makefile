@@ -1,7 +1,6 @@
 DOCTEST = node_modules/.bin/doctest --nodejs '--harmony' --module commonjs --prefix .
+ESLINT = node_modules/.bin/eslint --config node_modules/sanctuary-style/eslint-es3.json --env es3
 ISTANBUL = node_modules/.bin/istanbul
-JSCS = node_modules/.bin/jscs
-JSHINT = node_modules/.bin/jshint
 NPM = npm
 TRANSCRIBE = node_modules/.bin/transcribe
 XYZ = node_modules/.bin/xyz --repo git@github.com:sanctuary-js/sanctuary-int.git --script scripts/prepublish
@@ -20,8 +19,18 @@ README.md: index.js
 
 .PHONY: lint
 lint:
-	$(JSHINT) -- index.js test/index.js
-	$(JSCS) -- index.js test/index.js
+	$(ESLINT) \
+	  --global define \
+	  --global module \
+	  --global require \
+	  --global self \
+	  -- index.js
+	$(ESLINT) \
+	  --env node \
+	  --env mocha \
+	  --rule 'dot-notation: [error, {allowKeywords: true}]' \
+	  --rule 'max-len: [off]' \
+	  -- test
 	@echo 'Checking for missing link definitions...'
 	grep -o '\[[^]]*\]\[[^]]*\]' index.js \
 	| sort -u \

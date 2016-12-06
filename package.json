@@ -8,7 +8,7 @@
     "url": "git://github.com/sanctuary-js/sanctuary-int.git"
   },
   "dependencies": {
-    "sanctuary-def": "0.3.x"
+    "sanctuary-def": "0.8.x"
   },
   "devDependencies": {
     "doctest": "0.10.x",

@@ -28,10 +28,10 @@ var odd = int.odd;
 
 var throws = assert.throws;
 
-var eq = function(actual, expected) {
-  assert.strictEqual(arguments.length, 2);
+function eq(actual, expected) {
+  assert.strictEqual(arguments.length, eq.length);
   assert.strictEqual(R.toString(actual), R.toString(expected));
-};
+}
 
 //  errorEq :: Function -> String -> Error -> Boolean
 var errorEq = R.curry(function(type, message, error) {
@@ -39,7 +39,7 @@ var errorEq = R.curry(function(type, message, error) {
 });
 
 //  binary :: String -> Number
-var binary = function(s) { return parseInt(s, 2); };
+function binary(s) { return parseInt(s, 2); }
 
 //  maxInt :: Int
 var maxInt = Math.pow(2, 31) - 1;

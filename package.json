@@ -16,9 +16,9 @@
     "istanbul": "0.4.x",
     "jsverify": "0.7.x",
     "mocha": "3.x.x",
-    "ramda": "0.19.x",
     "remember-bower": "0.1.x",
     "sanctuary-style": "0.4.x",
+    "sanctuary-type-classes": "1.2.x",
     "transcribe": "0.5.x",
     "xyz": "2.0.x"
   },

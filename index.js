@@ -21,6 +21,8 @@
 
   'use strict';
 
+  var int = {};
+
   //# Int :: Type
   //.
   //. The Int type represents integers in the range [-2^31 .. 2^31).
@@ -29,6 +31,7 @@
     'https://github.com/sanctuary-js/sanctuary-int#Int',
     function(x) { return $.test(env, $.Number, x) && (x | 0) === x; }
   );
+  int.Int = Int;
 
   //# NonZeroInt :: Type
   //.
@@ -39,6 +42,7 @@
     'https://github.com/sanctuary-js/sanctuary-int#NonZeroInt',
     function(x) { return $.test(env, Int, x) && x !== 0; }
   );
+  int.NonZeroInt = NonZeroInt;
 
   //  env :: Array Type
   var env = $.env.concat([Int, NonZeroInt]);
@@ -53,11 +57,10 @@
   //. > add(1, 2)
   //. 3
   //. ```
-  var add =
-  def('add',
-      {},
-      [Int, Int, Int],
-      function(m, n) { return m + n; });
+  function add(m, n) {
+    return m + n;
+  }
+  int.add = def('add', {}, [Int, Int, Int], add);
 
   //# sub :: Int -> Int -> Int
   //.
@@ -68,11 +71,10 @@
   //. > sub(1, 2)
   //. -1
   //. ```
-  var sub =
-  def('sub',
-      {},
-      [Int, Int, Int],
-      function(m, n) { return m - n; });
+  function sub(m, n) {
+    return m - n;
+  }
+  int.sub = def('sub', {}, [Int, Int, Int], sub);
 
   //# mul :: Int -> Int -> Int
   //.
@@ -82,11 +84,10 @@
   //. > mul(6, 7)
   //. 42
   //. ```
-  var mul =
-  def('mul',
-      {},
-      [Int, Int, Int],
-      function(m, n) { return m * n; });
+  function mul(m, n) {
+    return m * n;
+  }
+  int.mul = def('mul', {}, [Int, Int, Int], mul);
 
   //# quot :: Int -> NonZeroInt -> Int
   //.
@@ -110,11 +111,10 @@
   //. > quot(-42, -5)
   //. 8
   //. ```
-  var quot =
-  def('quot',
-      {},
-      [Int, NonZeroInt, Int],
-      function(m, n) { return (m / n) | 0; });
+  function quot(m, n) {
+    return (m / n) | 0;
+  }
+  int.quot = def('quot', {}, [Int, NonZeroInt, Int], quot);
 
   //# rem :: Int -> NonZeroInt -> Int
   //.
@@ -139,11 +139,10 @@
   //. > rem(-42, -5)
   //. -2
   //. ```
-  var rem =
-  def('rem',
-      {},
-      [Int, NonZeroInt, Int],
-      function(m, n) { return m % n; });
+  function rem(m, n) {
+    return m % n;
+  }
+  int.rem = def('rem', {}, [Int, NonZeroInt, Int], rem);
 
   //# div :: Int -> NonZeroInt -> Int
   //.
@@ -167,11 +166,10 @@
   //. > div(-42, -5)
   //. 8
   //. ```
-  var div =
-  def('div',
-      {},
-      [Int, NonZeroInt, Int],
-      function(m, n) { return Math.floor(m / n); });
+  function div(m, n) {
+    return Math.floor(m / n);
+  }
+  int.div = def('div', {}, [Int, NonZeroInt, Int], div);
 
   //# mod :: Int -> NonZeroInt -> Int
   //.
@@ -196,11 +194,10 @@
   //. > mod(-42, -5)
   //. -2
   //. ```
-  var mod =
-  def('mod',
-      {},
-      [Int, NonZeroInt, Int],
-      function(m, n) { return (m % n + n) % n; });
+  function mod(m, n) {
+    return (m % n + n) % n;
+  }
+  int.mod = def('mod', {}, [Int, NonZeroInt, Int], mod);
 
   //# and :: Int -> Int -> Int
   //.
@@ -211,11 +208,10 @@
   //. > and(parseInt('1100', 2), parseInt('1010', 2))
   //. 8
   //. ```
-  var and =
-  def('and',
-      {},
-      [Int, Int, Int],
-      function(m, n) { return m & n; });
+  function and(m, n) {
+    return m & n;
+  }
+  int.and = def('and', {}, [Int, Int, Int], and);
 
   //# or :: Int -> Int -> Int
   //.
@@ -226,11 +222,10 @@
   //. > or(parseInt('1100', 2), parseInt('1010', 2))
   //. 14
   //. ```
-  var or =
-  def('or',
-      {},
-      [Int, Int, Int],
-      function(m, n) { return m | n; });
+  function or(m, n) {
+    return m | n;
+  }
+  int.or = def('or', {}, [Int, Int, Int], or);
 
   //# xor :: Int -> Int -> Int
   //.
@@ -241,11 +236,10 @@
   //. > xor(parseInt('1100', 2), parseInt('1010', 2))
   //. 6
   //. ```
-  var xor =
-  def('xor',
-      {},
-      [Int, Int, Int],
-      function(m, n) { return m ^ n; });
+  function xor(m, n) {
+    return m ^ n;
+  }
+  int.xor = def('xor', {}, [Int, Int, Int], xor);
 
   //# not :: Int -> Int
   //.
@@ -257,11 +251,10 @@
   //. > not(42)
   //. -43
   //. ```
-  var not =
-  def('not',
-      {},
-      [Int, Int],
-      function(n) { return ~n; });
+  function not(n) {
+    return ~n;
+  }
+  int.not = def('not', {}, [Int, Int], not);
 
   //# even :: Int -> Boolean
   //.
@@ -271,11 +264,10 @@
   //. > even(42)
   //. true
   //. ```
-  var even =
-  def('even',
-      {},
-      [Int, $.Boolean],
-      function(n) { return n % 2 === 0; });
+  function even(n) {
+    return n % 2 === 0;
+  }
+  int.even = def('even', {}, [Int, $.Boolean], even);
 
   //# odd :: Int -> Boolean
   //.
@@ -285,29 +277,12 @@
   //. > odd(42)
   //. false
   //. ```
-  var odd =
-  def('odd',
-      {},
-      [Int, $.Boolean],
-      function(n) { return n % 2 !== 0; });
+  function odd(n) {
+    return n % 2 !== 0;
+  }
+  int.odd = def('odd', {}, [Int, $.Boolean], odd);
 
-  return {
-    Int: Int,
-    NonZeroInt: NonZeroInt,
-    add: add,
-    sub: sub,
-    mul: mul,
-    quot: quot,
-    rem: rem,
-    div: div,
-    mod: mod,
-    and: and,
-    or: or,
-    xor: xor,
-    not: not,
-    even: even,
-    odd: odd
-  };
+  return int;
 
 }));
 

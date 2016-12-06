@@ -20,7 +20,7 @@
     "types"
   ],
   "dependencies": {
-    "sanctuary-def": "0.3.x"
+    "sanctuary-def": "0.8.x"
   },
   "ignore": [
     "/.git/",

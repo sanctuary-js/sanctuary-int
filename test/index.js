@@ -4,11 +4,10 @@ var assert = require('assert');
 
 var jsc = require('jsverify');
 var R = require('ramda');
+var $ = require('sanctuary-def');
 
 var int = require('..');
 
-
-var _ = R.__;
 
 var Int = int.Int;
 var NonZeroInt = int.NonZeroInt;
@@ -26,20 +25,23 @@ var not = int.not;
 var even = int.even;
 var odd = int.odd;
 
-var throws = assert.throws;
-
 function eq(actual, expected) {
   assert.strictEqual(arguments.length, eq.length);
   assert.strictEqual(R.toString(actual), R.toString(expected));
 }
 
-//  errorEq :: Function -> String -> Error -> Boolean
-var errorEq = R.curry(function(type, message, error) {
-  return error.constructor === type && error.message === message;
-});
-
 //  binary :: String -> Number
 function binary(s) { return parseInt(s, 2); }
+
+//  isInt :: Any -> Boolean
+function isInt(x) {
+  return $.test($.env, Int, x);
+}
+
+//  isNonZeroInt :: Any -> Boolean
+function isNonZeroInt(x) {
+  return $.test($.env, NonZeroInt, x);
+}
 
 //  maxInt :: Int
 var maxInt = Math.pow(2, 31) - 1;
@@ -50,72 +52,67 @@ var minInt = -Math.pow(2, 31);
 
 describe('Int', function() {
 
-  it('represents integers in the range [-2^31 .. 2^31)', function() {
-    eq(Int.test(0), true);
-    eq(Int.test(1), true);
-    eq(Int.test(-0), true);
-    eq(Int.test(-1), true);
-    eq(Int.test(maxInt), true);
-    eq(Int.test(minInt), true);
-    eq(Int.test(new Number(0)), true);
-    eq(Int.test(new Number(1)), true);
-    eq(Int.test(new Number(-0)), true);
-    eq(Int.test(new Number(-1)), true);
-    eq(Int.test(new Number(maxInt)), true);
-    eq(Int.test(new Number(minInt)), true);
+  it('is a nullary type', function() {
+    eq(Int.name, 'sanctuary-int/Int');
+    eq(Int.url, 'https://github.com/sanctuary-js/sanctuary-int#Int');
+    eq(Int.toString(), 'Int');
+  });
 
-    eq(Int.test('42'), false);
-    eq(Int.test(12.34), false);
-    eq(Int.test(maxInt + 1), false);
-    eq(Int.test(minInt - 1), false);
-    eq(Int.test(Infinity), false);
-    eq(Int.test(-Infinity), false);
-    eq(Int.test(NaN), false);
-    eq(Int.test(new Number(NaN)), false);
+  it('represents integers in the range [-2^31 .. 2^31)', function() {
+    eq(isInt(0), true);
+    eq(isInt(1), true);
+    eq(isInt(-0), true);
+    eq(isInt(-1), true);
+    eq(isInt(maxInt), true);
+    eq(isInt(minInt), true);
+
+    eq(isInt('42'), false);
+    eq(isInt(12.34), false);
+    eq(isInt(maxInt + 1), false);
+    eq(isInt(minInt - 1), false);
+    eq(isInt(Infinity), false);
+    eq(isInt(-Infinity), false);
+    eq(isInt(NaN), false);
+    eq(isInt(new Number(0)), false);
   });
 
 });
 
 describe('NonZeroInt', function() {
 
-  it('represents non-zero integers in the range [-2^31 .. 2^31)', function() {
-    eq(NonZeroInt.test(0), false);
-    eq(NonZeroInt.test(1), true);
-    eq(NonZeroInt.test(-0), false);
-    eq(NonZeroInt.test(-1), true);
-    eq(NonZeroInt.test(maxInt), true);
-    eq(NonZeroInt.test(minInt), true);
-    eq(NonZeroInt.test(new Number(0)), false);
-    eq(NonZeroInt.test(new Number(1)), true);
-    eq(NonZeroInt.test(new Number(-0)), false);
-    eq(NonZeroInt.test(new Number(-1)), true);
-    eq(NonZeroInt.test(new Number(maxInt)), true);
-    eq(NonZeroInt.test(new Number(minInt)), true);
+  it('is a nullary type', function() {
+    eq(NonZeroInt.name, 'sanctuary-int/NonZeroInt');
+    eq(NonZeroInt.url, 'https://github.com/sanctuary-js/sanctuary-int#NonZeroInt');
+    eq(NonZeroInt.toString(), 'NonZeroInt');
+  });
 
-    eq(NonZeroInt.test('42'), false);
-    eq(NonZeroInt.test(12.34), false);
-    eq(NonZeroInt.test(maxInt + 1), false);
-    eq(NonZeroInt.test(minInt - 1), false);
-    eq(NonZeroInt.test(Infinity), false);
-    eq(NonZeroInt.test(-Infinity), false);
-    eq(NonZeroInt.test(NaN), false);
-    eq(NonZeroInt.test(new Number(NaN)), false);
+  it('represents non-zero integers in the range [-2^31 .. 2^31)', function() {
+    eq(isNonZeroInt(0), false);
+    eq(isNonZeroInt(1), true);
+    eq(isNonZeroInt(-0), false);
+    eq(isNonZeroInt(-1), true);
+    eq(isNonZeroInt(maxInt), true);
+    eq(isNonZeroInt(minInt), true);
+
+    eq(isNonZeroInt('42'), false);
+    eq(isNonZeroInt(12.34), false);
+    eq(isNonZeroInt(maxInt + 1), false);
+    eq(isNonZeroInt(minInt - 1), false);
+    eq(isNonZeroInt(Infinity), false);
+    eq(isNonZeroInt(-Infinity), false);
+    eq(isNonZeroInt(NaN), false);
+    eq(isNonZeroInt(new Number(0)), false);
+    eq(isNonZeroInt(new Number(1)), false);
   });
 
 });
 
 describe('add', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { add(0.5); },
-           errorEq(TypeError,
-                   '‘add’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { add(0, 0.5); },
-           errorEq(TypeError,
-                   '‘add’ expected a value of type Int ' +
-                   'as its second argument; received 0.5'));
+  it('is a binary function', function() {
+    eq(typeof add, 'function');
+    eq(add.length, 2);
+    eq(add.toString(), 'add :: Int -> Int -> Int');
   });
 
   it('returns the sum', function() {
@@ -132,7 +129,7 @@ describe('add', function() {
   it('is commutative', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, function(x, y) {
       // The sum may be outside the valid range.
-      return !Int.test(x + y) ||
+      return !isInt(x + y) ||
              R.equals(add(x, y),
                       add(y, x));
     }));
@@ -141,32 +138,22 @@ describe('add', function() {
   it('is associative', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, jsc.int32, function(x, y, z) {
       // The sum may be outside the valid range.
-      return !Int.test(x + y) ||
-             !Int.test(y + z) ||
-             !Int.test(x + y + z) ||
+      return !isInt(x + y) ||
+             !isInt(y + z) ||
+             !isInt(x + y + z) ||
              R.equals(add(add(x, y), z),
                       add(x, add(y, z)));
     }));
-  });
-
-  it('is curried', function() {
-    eq(add(1)(2), 3);
   });
 
 });
 
 describe('sub', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { sub(0.5); },
-           errorEq(TypeError,
-                   '‘sub’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { sub(0, 0.5); },
-           errorEq(TypeError,
-                   '‘sub’ expected a value of type Int ' +
-                   'as its second argument; received 0.5'));
+  it('is a binary function', function() {
+    eq(typeof sub, 'function');
+    eq(sub.length, 2);
+    eq(sub.toString(), 'sub :: Int -> Int -> Int');
   });
 
   it('returns the difference', function() {
@@ -180,24 +167,14 @@ describe('sub', function() {
     }));
   });
 
-  it('is curried', function() {
-    eq(sub(1)(2), -1);
-  });
-
 });
 
 describe('mul', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { mul(0.5); },
-           errorEq(TypeError,
-                   '‘mul’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { mul(0, 0.5); },
-           errorEq(TypeError,
-                   '‘mul’ expected a value of type Int ' +
-                   'as its second argument; received 0.5'));
+  it('is a binary function', function() {
+    eq(typeof mul, 'function');
+    eq(mul.length, 2);
+    eq(mul.toString(), 'mul :: Int -> Int -> Int');
   });
 
   it('returns the product', function() {
@@ -214,7 +191,7 @@ describe('mul', function() {
   it('is commutative', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, function(x, y) {
       // The product may be outside the valid range.
-      return !Int.test(x * y) ||
+      return !isInt(x * y) ||
              R.equals(mul(x, y),
                       mul(y, x));
     }));
@@ -223,52 +200,22 @@ describe('mul', function() {
   it('is associative', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, jsc.int32, function(x, y, z) {
       // The product may be outside the valid range.
-      return !Int.test(x * y) ||
-             !Int.test(y * z) ||
-             !Int.test(x * y * z) ||
+      return !isInt(x * y) ||
+             !isInt(y * z) ||
+             !isInt(x * y * z) ||
              R.equals(mul(mul(x, y), z),
                       mul(x, mul(y, z)));
     }));
-  });
-
-  it('is curried', function() {
-    eq(mul(6)(7), 42);
   });
 
 });
 
 describe('quot', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { quot(0.5); },
-           errorEq(TypeError,
-                   '‘quot’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { quot(_, 0.5); },
-           errorEq(TypeError,
-                   '‘quot’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0.5'));
-
-    throws(function() { quot(_, 0); },
-           errorEq(TypeError,
-                   '‘quot’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0'));
-
-    throws(function() { quot(_, -0); },
-           errorEq(TypeError,
-                   '‘quot’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received -0'));
-
-    throws(function() { quot(_, new Number(0)); },
-           errorEq(TypeError,
-                   '‘quot’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(0)'));
-
-    throws(function() { quot(_, new Number(-0)); },
-           errorEq(TypeError,
-                   '‘quot’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(-0)'));
+  it('is a binary function', function() {
+    eq(typeof quot, 'function');
+    eq(quot.length, 2);
+    eq(quot.toString(), 'quot :: Int -> NonZeroInt -> Int');
   });
 
   it('performs integer division truncated towards 0', function() {
@@ -278,44 +225,14 @@ describe('quot', function() {
     eq(quot(-42, -5), 8);
   });
 
-  it('is curried', function() {
-    eq(quot(42)(5), 8);
-  });
-
 });
 
 describe('rem', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { rem(0.5); },
-           errorEq(TypeError,
-                   '‘rem’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { rem(_, 0.5); },
-           errorEq(TypeError,
-                   '‘rem’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0.5'));
-
-    throws(function() { rem(_, 0); },
-           errorEq(TypeError,
-                   '‘rem’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0'));
-
-    throws(function() { rem(_, -0); },
-           errorEq(TypeError,
-                   '‘rem’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received -0'));
-
-    throws(function() { rem(_, new Number(0)); },
-           errorEq(TypeError,
-                   '‘rem’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(0)'));
-
-    throws(function() { rem(_, new Number(-0)); },
-           errorEq(TypeError,
-                   '‘rem’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(-0)'));
+  it('is a binary function', function() {
+    eq(typeof rem, 'function');
+    eq(rem.length, 2);
+    eq(rem.toString(), 'rem :: Int -> NonZeroInt -> Int');
   });
 
   it('returns the remainder', function() {
@@ -325,44 +242,14 @@ describe('rem', function() {
     eq(rem(-42, -5), -2);
   });
 
-  it('is curried', function() {
-    eq(rem(42)(5), 2);
-  });
-
 });
 
 describe('div', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { div(0.5); },
-           errorEq(TypeError,
-                   '‘div’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { div(_, 0.5); },
-           errorEq(TypeError,
-                   '‘div’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0.5'));
-
-    throws(function() { div(_, 0); },
-           errorEq(TypeError,
-                   '‘div’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0'));
-
-    throws(function() { div(_, -0); },
-           errorEq(TypeError,
-                   '‘div’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received -0'));
-
-    throws(function() { div(_, new Number(0)); },
-           errorEq(TypeError,
-                   '‘div’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(0)'));
-
-    throws(function() { div(_, new Number(-0)); },
-           errorEq(TypeError,
-                   '‘div’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(-0)'));
+  it('is a binary function', function() {
+    eq(typeof div, 'function');
+    eq(div.length, 2);
+    eq(div.toString(), 'div :: Int -> NonZeroInt -> Int');
   });
 
   it('performs integer division truncated towards -Infinity', function() {
@@ -372,49 +259,16 @@ describe('div', function() {
     eq(div(-7, -2), 3);
     eq(div(0, 1), 0);
     eq(div(-0, 1), -0);
-    eq(div(7, new Number(2)), 3);
-    eq(div(new Number(7), 2), 3);
-    eq(div(new Number(7), new Number(2)), 3);
-  });
-
-  it('is curried', function() {
-    eq(div(7)(2), 3);
   });
 
 });
 
 describe('mod', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { mod(0.5); },
-           errorEq(TypeError,
-                   '‘mod’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { mod(_, 0.5); },
-           errorEq(TypeError,
-                   '‘mod’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0.5'));
-
-    throws(function() { mod(_, 0); },
-           errorEq(TypeError,
-                   '‘mod’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received 0'));
-
-    throws(function() { mod(_, -0); },
-           errorEq(TypeError,
-                   '‘mod’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received -0'));
-
-    throws(function() { mod(_, new Number(0)); },
-           errorEq(TypeError,
-                   '‘mod’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(0)'));
-
-    throws(function() { mod(_, new Number(-0)); },
-           errorEq(TypeError,
-                   '‘mod’ expected a value of type NonZeroInt ' +
-                   'as its second argument; received new Number(-0)'));
+  it('is a binary function', function() {
+    eq(typeof mod, 'function');
+    eq(mod.length, 2);
+    eq(mod.toString(), 'mod :: Int -> NonZeroInt -> Int');
   });
 
   it('returns the modulus', function() {
@@ -424,91 +278,56 @@ describe('mod', function() {
     eq(mod(-42, -5), -2);
   });
 
-  it('is curried', function() {
-    eq(mod(42)(5), 2);
-  });
-
 });
 
 describe('and', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { and(0.5); },
-           errorEq(TypeError,
-                   '‘and’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { and(0, 0.5); },
-           errorEq(TypeError,
-                   '‘and’ expected a value of type Int ' +
-                   'as its second argument; received 0.5'));
+  it('is a binary function', function() {
+    eq(typeof and, 'function');
+    eq(and.length, 2);
+    eq(and.toString(), 'and :: Int -> Int -> Int');
   });
 
   it('returns the bitwise AND of its arguments', function() {
     eq(and(binary('1100'), binary('1010')), binary('1000'));
   });
 
-  it('is curried', function() {
-    eq(and(binary('1100'))(binary('1010')), binary('1000'));
-  });
-
 });
 
 describe('or', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { or(0.5); },
-           errorEq(TypeError,
-                   '‘or’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { or(0, 0.5); },
-           errorEq(TypeError,
-                   '‘or’ expected a value of type Int ' +
-                   'as its second argument; received 0.5'));
+  it('is a binary function', function() {
+    eq(typeof or, 'function');
+    eq(or.length, 2);
+    eq(or.toString(), 'or :: Int -> Int -> Int');
   });
 
   it('returns the bitwise OR of its arguments', function() {
     eq(or(binary('1100'), binary('1010')), binary('1110'));
   });
 
-  it('is curried', function() {
-    eq(or(binary('1100'))(binary('1010')), binary('1110'));
-  });
-
 });
 
 describe('xor', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { xor(0.5); },
-           errorEq(TypeError,
-                   '‘xor’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
-
-    throws(function() { xor(0, 0.5); },
-           errorEq(TypeError,
-                   '‘xor’ expected a value of type Int ' +
-                   'as its second argument; received 0.5'));
+  it('is a binary function', function() {
+    eq(typeof xor, 'function');
+    eq(xor.length, 2);
+    eq(xor.toString(), 'xor :: Int -> Int -> Int');
   });
 
   it('returns the bitwise XOR of its arguments', function() {
     eq(xor(binary('1100'), binary('1010')), binary('0110'));
   });
 
-  it('is curried', function() {
-    eq(xor(binary('1100'))(binary('1010')), binary('0110'));
-  });
-
 });
 
 describe('not', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { not(0.5); },
-           errorEq(TypeError,
-                   '‘not’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
+  it('is a unary function', function() {
+    eq(typeof not, 'function');
+    eq(not.length, 1);
+    eq(not.toString(), 'not :: Int -> Int');
   });
 
   it('returns bitwise NOT of its argument', function() {
@@ -522,11 +341,10 @@ describe('not', function() {
 
 describe('even', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { even(0.5); },
-           errorEq(TypeError,
-                   '‘even’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
+  it('is a unary function', function() {
+    eq(typeof even, 'function');
+    eq(even.length, 1);
+    eq(even.toString(), 'even :: Int -> Boolean');
   });
 
   it('returns true if applied to an even integer', function() {
@@ -536,7 +354,6 @@ describe('even', function() {
     eq(even(-2), true);
     eq(even(2147483646), true);
     eq(even(-2147483648), true);
-    eq(even(new Number(-0)), true);
   });
 
   it('returns false if applied to an odd integer', function() {
@@ -544,18 +361,16 @@ describe('even', function() {
     eq(even(-1), false);
     eq(even(2147483647), false);
     eq(even(-2147483647), false);
-    eq(even(new Number(-1)), false);
   });
 
 });
 
 describe('odd', function() {
 
-  it('type checks its arguments', function() {
-    throws(function() { odd(0.5); },
-           errorEq(TypeError,
-                   '‘odd’ expected a value of type Int ' +
-                   'as its first argument; received 0.5'));
+  it('is a unary function', function() {
+    eq(typeof odd, 'function');
+    eq(odd.length, 1);
+    eq(odd.toString(), 'odd :: Int -> Boolean');
   });
 
   it('returns true if applied to an odd value', function() {
@@ -563,7 +378,6 @@ describe('odd', function() {
     eq(odd(-1), true);
     eq(odd(2147483647), true);
     eq(odd(-2147483647), true);
-    eq(odd(new Number(-1)), true);
   });
 
   it('returns false if applied to an even value', function() {
@@ -573,7 +387,6 @@ describe('odd', function() {
     eq(odd(-2), false);
     eq(odd(2147483646), false);
     eq(odd(-2147483648), false);
-    eq(odd(new Number(-0)), false);
   });
 
 });

@@ -3,8 +3,8 @@
 var assert = require('assert');
 
 var jsc = require('jsverify');
-var R = require('ramda');
 var $ = require('sanctuary-def');
+var Z = require('sanctuary-type-classes');
 
 var int = require('..');
 
@@ -27,7 +27,8 @@ var odd = int.odd;
 
 function eq(actual, expected) {
   assert.strictEqual(arguments.length, eq.length);
-  assert.strictEqual(R.toString(actual), R.toString(expected));
+  assert.strictEqual(Z.toString(actual), Z.toString(expected));
+  assert.strictEqual(Z.equals(actual, expected), true);
 }
 
 //  binary :: String -> Number
@@ -121,8 +122,8 @@ describe('add', function() {
 
   it('has identity element (zero)', function() {
     jsc.assert(jsc.forall(jsc.int32, function(x) {
-      return R.equals(add(x, 0), x) &&
-             R.equals(add(0, x), x);
+      return Z.equals(add(x, 0), x) &&
+             Z.equals(add(0, x), x);
     }));
   });
 
@@ -130,7 +131,7 @@ describe('add', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, function(x, y) {
       // The sum may be outside the valid range.
       return !isInt(x + y) ||
-             R.equals(add(x, y),
+             Z.equals(add(x, y),
                       add(y, x));
     }));
   });
@@ -141,7 +142,7 @@ describe('add', function() {
       return !isInt(x + y) ||
              !isInt(y + z) ||
              !isInt(x + y + z) ||
-             R.equals(add(add(x, y), z),
+             Z.equals(add(add(x, y), z),
                       add(x, add(y, z)));
     }));
   });
@@ -162,8 +163,8 @@ describe('sub', function() {
 
   it('has right identity element (zero)', function() {
     jsc.assert(jsc.forall(jsc.int32, function(x) {
-      return R.equals(sub(x, 0), x) &&
-             R.equals(sub(x, x), 0);
+      return Z.equals(sub(x, 0), x) &&
+             Z.equals(sub(x, x), 0);
     }));
   });
 
@@ -183,8 +184,8 @@ describe('mul', function() {
 
   it('has identity element (one)', function() {
     jsc.assert(jsc.forall(jsc.int32, function(x) {
-      return R.equals(mul(x, 1), x) &&
-             R.equals(mul(1, x), x);
+      return Z.equals(mul(x, 1), x) &&
+             Z.equals(mul(1, x), x);
     }));
   });
 
@@ -192,7 +193,7 @@ describe('mul', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, function(x, y) {
       // The product may be outside the valid range.
       return !isInt(x * y) ||
-             R.equals(mul(x, y),
+             Z.equals(mul(x, y),
                       mul(y, x));
     }));
   });
@@ -203,7 +204,7 @@ describe('mul', function() {
       return !isInt(x * y) ||
              !isInt(y * z) ||
              !isInt(x * y * z) ||
-             R.equals(mul(mul(x, y), z),
+             Z.equals(mul(mul(x, y), z),
                       mul(x, mul(y, z)));
     }));
   });
@@ -396,20 +397,20 @@ describe('invariants', function() {
   it('quot(x, y) * y + rem(x, y) === x', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, function(x, y) {
       return y === 0 ||
-             R.equals(quot(x, y) * y + rem(x, y), x);
+             Z.equals(quot(x, y) * y + rem(x, y), x);
     }));
   });
 
   it('div(x, y) * y + mod(x, y) === x', function() {
     jsc.assert(jsc.forall(jsc.int32, jsc.int32, function(x, y) {
       return y === 0 ||
-             R.equals(div(x, y) * y + mod(x, y), x);
+             Z.equals(div(x, y) * y + mod(x, y), x);
     }));
   });
 
   it('not(x) === -(x + 1)', function() {
     jsc.assert(jsc.forall(jsc.int32, function(x) {
-      return R.equals(not(x), -(x + 1));
+      return Z.equals(not(x), -(x + 1));
     }));
   });
 

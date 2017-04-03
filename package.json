@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "doctest": "0.10.x",
-    "eslint": "2.9.x",
+    "eslint": "3.19.x",
     "istanbul": "0.4.x",
     "jsverify": "0.7.x",
     "mocha": "3.x.x",
@@ -20,7 +20,7 @@
     "remark-lint-no-undefined-references": "1.x.x",
     "remark-lint-no-unused-definitions": "1.x.x",
     "remember-bower": "0.1.x",
-    "sanctuary-style": "0.4.x",
+    "sanctuary-style": "0.5.x",
     "sanctuary-type-classes": "1.2.x",
     "transcribe": "0.5.x",
     "xyz": "2.0.x"

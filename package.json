@@ -8,25 +8,18 @@
     "url": "git://github.com/sanctuary-js/sanctuary-int.git"
   },
   "scripts": {
-    "test": "make lint test"
+    "doctest": "sanctuary-doctest",
+    "lint": "sanctuary-lint",
+    "release": "sanctuary-release",
+    "test": "npm run lint && sanctuary-test && npm run doctest"
   },
   "dependencies": {
     "sanctuary-def": "0.13.x"
   },
   "devDependencies": {
-    "doctest": "0.12.x",
-    "eslint": "4.9.x",
-    "istanbul": "0.4.x",
     "jsverify": "0.7.x",
-    "mocha": "3.x.x",
-    "remark-cli": "3.x.x",
-    "remark-lint-no-undefined-references": "1.x.x",
-    "remark-lint-no-unused-definitions": "1.x.x",
-    "remember-bower": "0.1.x",
-    "sanctuary-style": "1.0.x",
-    "sanctuary-type-classes": "7.1.x",
-    "transcribe": "0.5.x",
-    "xyz": "2.0.x"
+    "sanctuary-scripts": "1.0.x",
+    "sanctuary-type-classes": "7.1.x"
   },
   "files": [
     "/LICENSE",

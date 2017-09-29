@@ -23,13 +23,16 @@
 
   var int = {};
 
+  //  test :: Type -> Any -> Boolean
+  var test = $.test([]);
+
   //# Int :: Type
   //.
   //. The Int type represents integers in the range [-2^31 .. 2^31).
   var Int = $.NullaryType(
     'sanctuary-int/Int',
     'https://github.com/sanctuary-js/sanctuary-int#Int',
-    function(x) { return $.test(env, $.Number, x) && (x | 0) === x; }
+    function(x) { return test($.Number, x) && (x | 0) === x; }
   );
   int.Int = Int;
 
@@ -40,7 +43,7 @@
   var NonZeroInt = $.NullaryType(
     'sanctuary-int/NonZeroInt',
     'https://github.com/sanctuary-js/sanctuary-int#NonZeroInt',
-    function(x) { return $.test(env, Int, x) && x !== 0; }
+    function(x) { return test(Int, x) && x !== 0; }
   );
   int.NonZeroInt = NonZeroInt;
 

@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git://github.com/sanctuary-js/sanctuary-int.git"
   },
+  "scripts": {
+    "test": "make lint test"
+  },
   "dependencies": {
     "sanctuary-def": "0.13.x"
   },

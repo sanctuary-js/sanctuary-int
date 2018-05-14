@@ -10,91 +10,97 @@
 
   /* istanbul ignore else */
   if (typeof module === 'object' && typeof module.exports === 'object') {
-    module.exports = f(require('sanctuary-def'));
+    module.exports = f (require ('sanctuary-def'));
   } else if (typeof define === 'function' && define.amd != null) {
-    define(['sanctuary-def'], f);
+    define (['sanctuary-def'], f);
   } else {
-    self.sanctuaryInt = f(self.sanctuaryDef);
+    self.sanctuaryInt = f (self.sanctuaryDef);
   }
 
-}(function($) {
+} (function($) {
 
   'use strict';
 
-  var int = {};
+  var _ = {};
 
   //  test :: Type -> Any -> Boolean
-  var test = $.test([]);
+  var test = $.test ([]);
 
   //# Int :: Type
   //.
   //. The Int type represents integers in the range [-2^31 .. 2^31).
-  var Int = $.NullaryType(
-    'sanctuary-int/Int',
-    'https://github.com/sanctuary-js/sanctuary-int#Int',
-    function(x) { return test($.Number, x) && (x | 0) === x; }
-  );
-  int.Int = Int;
+  var Int = $.NullaryType
+    ('sanctuary-int/Int')
+    ('https://github.com/sanctuary-js/sanctuary-int#Int')
+    (function(x) { return test ($.Number) (x) && (x | 0) === x; });
 
   //# NonZeroInt :: Type
   //.
   //. The NonZeroInt type represents non-zero integers in the range
   //. [-2^31 .. 2^31).
-  var NonZeroInt = $.NullaryType(
-    'sanctuary-int/NonZeroInt',
-    'https://github.com/sanctuary-js/sanctuary-int#NonZeroInt',
-    function(x) { return test(Int, x) && x !== 0; }
-  );
-  int.NonZeroInt = NonZeroInt;
-
-  //  env :: Array Type
-  var env = $.env.concat([Int, NonZeroInt]);
-
-  var def = $.create({checkTypes: true, env: env});
+  var NonZeroInt = $.NullaryType
+    ('sanctuary-int/NonZeroInt')
+    ('https://github.com/sanctuary-js/sanctuary-int#NonZeroInt')
+    (function(x) { return test (Int) (x) && x !== 0; });
 
   //# add :: Int -> Int -> Int
   //.
   //. Returns the sum of its two arguments.
   //.
   //. ```javascript
-  //. > add(1, 2)
+  //. > add (1) (2)
   //. 3
   //. ```
-  function add(m, n) {
-    return m + n;
+  function add(n) {
+    return function(m) {
+      return m + n;
+    };
   }
-  int.add = def('add', {}, [Int, Int, Int], add);
+  _.add = {
+    types: [Int, Int, Int],
+    impl: add
+  };
 
   //# sub :: Int -> Int -> Int
   //.
-  //. Returns the result of subtracting its second argument from its first
+  //. Returns the result of subtracting its first argument from its second
   //. argument.
   //.
   //. ```javascript
-  //. > sub(1, 2)
-  //. -1
+  //. > sub (1) (100)
+  //. 99
   //. ```
-  function sub(m, n) {
-    return m - n;
+  function sub(n) {
+    return function(m) {
+      return m - n;
+    };
   }
-  int.sub = def('sub', {}, [Int, Int, Int], sub);
+  _.sub = {
+    types: [Int, Int, Int],
+    impl: sub
+  };
 
   //# mul :: Int -> Int -> Int
   //.
   //. Returns the product of its two arguments.
   //.
   //. ```javascript
-  //. > mul(6, 7)
+  //. > mul (6) (7)
   //. 42
   //. ```
-  function mul(m, n) {
-    return m * n;
+  function mul(n) {
+    return function(m) {
+      return m * n;
+    };
   }
-  int.mul = def('mul', {}, [Int, Int, Int], mul);
+  _.mul = {
+    types: [Int, Int, Int],
+    impl: mul
+  };
 
-  //# quot :: Int -> NonZeroInt -> Int
+  //# quot :: NonZeroInt -> Int -> Int
   //.
-  //. Returns the result of dividing its first argument by its second
+  //. Returns the result of dividing its second argument by its first
   //. argument, truncating towards zero.
   //.
   //. Throws if the divisor is zero.
@@ -102,54 +108,64 @@
   //. See also [`div`](#div).
   //.
   //. ```javascript
-  //. > quot(42, 5)
+  //. > quot (5) (42)
   //. 8
   //.
-  //. > quot(42, -5)
+  //. > quot (-5) (42)
   //. -8
   //.
-  //. > quot(-42, 5)
+  //. > quot (5) (-42)
   //. -8
   //.
-  //. > quot(-42, -5)
+  //. > quot (-5) (-42)
   //. 8
   //. ```
-  function quot(m, n) {
-    return (m / n) | 0;
+  function quot(n) {
+    return function(m) {
+      return (m / n) | 0;
+    };
   }
-  int.quot = def('quot', {}, [Int, NonZeroInt, Int], quot);
+  _.quot = {
+    types: [NonZeroInt, Int, Int],
+    impl: quot
+  };
 
-  //# rem :: Int -> NonZeroInt -> Int
+  //# rem :: NonZeroInt -> Int -> Int
   //.
   //. Integer remainder, satisfying:
   //.
-  //.     quot(x, y) * y + rem(x, y) === x
+  //.     quot (y) (x) * y + rem (y) (x) === x
   //.
   //. Throws if the divisor is zero.
   //.
   //. See also [`mod`](#mod).
   //.
   //. ```javascript
-  //. > rem(42, 5)
+  //. > rem (5) (42)
   //. 2
   //.
-  //. > rem(42, -5)
+  //. > rem (-5) (42)
   //. 2
   //.
-  //. > rem(-42, 5)
+  //. > rem (5) (-42)
   //. -2
   //.
-  //. > rem(-42, -5)
+  //. > rem (-5) (-42)
   //. -2
   //. ```
-  function rem(m, n) {
-    return m % n;
+  function rem(n) {
+    return function(m) {
+      return m % n;
+    };
   }
-  int.rem = def('rem', {}, [Int, NonZeroInt, Int], rem);
+  _.rem = {
+    types: [NonZeroInt, Int, Int],
+    impl: rem
+  };
 
-  //# div :: Int -> NonZeroInt -> Int
+  //# div :: NonZeroInt -> Int -> Int
   //.
-  //. Returns the result of dividing its first argument by its second
+  //. Returns the result of dividing its second argument by its first
   //. argument, truncating towards negative infinity.
   //.
   //. Throws if the divisor is zero.
@@ -157,50 +173,60 @@
   //. See also [`quot`](#quot).
   //.
   //. ```javascript
-  //. > div(42, 5)
+  //. > div (5) (42)
   //. 8
   //.
-  //. > div(42, -5)
+  //. > div (-5) (42)
   //. -9
   //.
-  //. > div(-42, 5)
+  //. > div (5) (-42)
   //. -9
   //.
-  //. > div(-42, -5)
+  //. > div (-5) (-42)
   //. 8
   //. ```
-  function div(m, n) {
-    return Math.floor(m / n);
+  function div(n) {
+    return function(m) {
+      return Math.floor (m / n);
+    };
   }
-  int.div = def('div', {}, [Int, NonZeroInt, Int], div);
+  _.div = {
+    types: [NonZeroInt, Int, Int],
+    impl: div
+  };
 
-  //# mod :: Int -> NonZeroInt -> Int
+  //# mod :: NonZeroInt -> Int -> Int
   //.
   //. Integer modulus, satisfying:
   //.
-  //.     div(x, y) * y + mod(x, y) === x
+  //.     div (y) (x) * y + mod (y) (x) === x
   //.
   //. Throws if the divisor is zero.
   //.
   //. See also [`rem`](#rem).
   //.
   //. ```javascript
-  //. > mod(42, 5)
+  //. > mod (5) (42)
   //. 2
   //.
-  //. > mod(42, -5)
+  //. > mod (-5) (42)
   //. -3
   //.
-  //. > mod(-42, 5)
+  //. > mod (5) (-42)
   //. 3
   //.
-  //. > mod(-42, -5)
+  //. > mod (-5) (-42)
   //. -2
   //. ```
-  function mod(m, n) {
-    return (m % n + n) % n;
+  function mod(n) {
+    return function(m) {
+      return (m % n + n) % n;
+    };
   }
-  int.mod = def('mod', {}, [Int, NonZeroInt, Int], mod);
+  _.mod = {
+    types: [NonZeroInt, Int, Int],
+    impl: mod
+  };
 
   //# and :: Int -> Int -> Int
   //.
@@ -208,13 +234,18 @@
   //. which both arguments have a one.
   //.
   //. ```javascript
-  //. > and(parseInt('1100', 2), parseInt('1010', 2))
-  //. 8
+  //. > and (0b1100) (0b1010)
+  //. 0b1000
   //. ```
-  function and(m, n) {
-    return m & n;
+  function and(n) {
+    return function(m) {
+      return m & n;
+    };
   }
-  int.and = def('and', {}, [Int, Int, Int], and);
+  _.and = {
+    types: [Int, Int, Int],
+    impl: and
+  };
 
   //# or :: Int -> Int -> Int
   //.
@@ -222,13 +253,18 @@
   //. which at least one argument has a one.
   //.
   //. ```javascript
-  //. > or(parseInt('1100', 2), parseInt('1010', 2))
-  //. 14
+  //. > or (0b1100) (0b1010)
+  //. 0b1110
   //. ```
-  function or(m, n) {
-    return m | n;
+  function or(n) {
+    return function(m) {
+      return m | n;
+    };
   }
-  int.or = def('or', {}, [Int, Int, Int], or);
+  _.or = {
+    types: [Int, Int, Int],
+    impl: or
+  };
 
   //# xor :: Int -> Int -> Int
   //.
@@ -236,56 +272,75 @@
   //. which exactly one argument has a one.
   //.
   //. ```javascript
-  //. > xor(parseInt('1100', 2), parseInt('1010', 2))
-  //. 6
+  //. > xor (0b1100) (0b1010)
+  //. 0b0110
   //. ```
-  function xor(m, n) {
-    return m ^ n;
+  function xor(n) {
+    return function(m) {
+      return m ^ n;
+    };
   }
-  int.xor = def('xor', {}, [Int, Int, Int], xor);
+  _.xor = {
+    types: [Int, Int, Int],
+    impl: xor
+  };
 
   //# not :: Int -> Int
   //.
   //. [Bitwise NOT][~], satisfying:
   //.
-  //.     not(x) === -(x + 1)
+  //.     not (x) === -(x + 1)
   //.
   //. ```javascript
-  //. > not(42)
+  //. > not (42)
   //. -43
   //. ```
   function not(n) {
     return ~n;
   }
-  int.not = def('not', {}, [Int, Int], not);
+  _.not = {
+    types: [Int, Int],
+    impl: not
+  };
 
   //# even :: Int -> Boolean
   //.
   //. Returns `true` if its argument is even; `false` if it is odd.
   //.
   //. ```javascript
-  //. > even(42)
+  //. > even (42)
   //. true
   //. ```
   function even(n) {
     return n % 2 === 0;
   }
-  int.even = def('even', {}, [Int, $.Boolean], even);
+  _.even = {
+    types: [Int, $.Boolean],
+    impl: even
+  };
 
   //# odd :: Int -> Boolean
   //.
   //. Returns `true` if its argument is odd; `false` if it is even.
   //.
   //. ```javascript
-  //. > odd(42)
+  //. > odd (42)
   //. false
   //. ```
   function odd(n) {
     return n % 2 !== 0;
   }
-  int.odd = def('odd', {}, [Int, $.Boolean], odd);
+  _.odd = {
+    types: [Int, $.Boolean],
+    impl: odd
+  };
 
-  return int;
+  var env = $.env.concat ([Int, NonZeroInt]);
+  var def = $.create ({checkTypes: true, env: env});
+  return (Object.keys (_)).reduce (function(int, name) {
+    int[name] = def (name) ({}) (_[name].types) (_[name].impl);
+    return int;
+  }, {Int: Int, NonZeroInt: NonZeroInt});
 
 }));
 

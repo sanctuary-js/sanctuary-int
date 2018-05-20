@@ -1,27 +1,11 @@
 {
   "root": true,
-  "extends": ["./node_modules/sanctuary-style/eslint-es6.json"],
-  "rules": {
-    "func-call-spacing": ["error", "always", {"allowNewlines": true}],
-    "no-extra-parens": ["off"]
-  },
+  "extends": ["./node_modules/sanctuary-style/eslint-es3.json"],
   "overrides": [
     {
       "files": ["*.md"],
-      "plugins": ["markdown"],
       "rules": {
         "no-undef": ["off"]
-      }
-    },
-    {
-      "files": ["index.js"],
-      "rules": {
-        "comma-dangle": ["error", "never"],
-        "func-style": ["error", "declaration", {"allowArrowFunctions": false}],
-        "indent": ["off"],
-        "no-unexpected-multiline": ["off"],
-        "no-var": ["off"],
-        "prefer-arrow-callback": ["off"]
       }
     }
   ]

@@ -4,6 +4,7 @@ var assert = require ('assert');
 
 var jsc = require ('jsverify');
 var $ = require ('sanctuary-def');
+var show = require ('sanctuary-show');
 var Z = require ('sanctuary-type-classes');
 
 var int = require ('..');
@@ -30,7 +31,7 @@ function eq(actual) {
   assert.strictEqual (arguments.length, eq.length);
   return function eq$1(expected) {
     assert.strictEqual (arguments.length, eq$1.length);
-    assert.strictEqual (Z.toString (actual), Z.toString (expected));
+    assert.strictEqual (show (actual), show (expected));
     assert.strictEqual (Z.equals (actual, expected), true);
   };
 }
@@ -53,7 +54,7 @@ suite ('Int', function() {
   test ('is a nullary type', function() {
     eq (Int.name) ('sanctuary-int/Int');
     eq (Int.url) ('https://github.com/sanctuary-js/sanctuary-int#Int');
-    eq (Int.toString ()) ('Int');
+    eq (show (Int)) ('Int');
     eq (Z.equals (Int, Int)) (true);
     eq (Z.equals (Int, NonZeroInt)) (false);
   });
@@ -83,7 +84,7 @@ suite ('NonZeroInt', function() {
   test ('is a nullary type', function() {
     eq (NonZeroInt.name) ('sanctuary-int/NonZeroInt');
     eq (NonZeroInt.url) ('https://github.com/sanctuary-js/sanctuary-int#NonZeroInt');
-    eq (NonZeroInt.toString ()) ('NonZeroInt');
+    eq (show (NonZeroInt)) ('NonZeroInt');
     eq (Z.equals (NonZeroInt, NonZeroInt)) (true);
     eq (Z.equals (NonZeroInt, Int)) (false);
   });
@@ -114,7 +115,7 @@ suite ('add', function() {
   test ('is a binary function', function() {
     eq (typeof add) ('function');
     eq (add.length) (1);
-    eq (add.toString ()) ('add :: Int -> Int -> Int');
+    eq (show (add)) ('add :: Int -> Int -> Int');
   });
 
   test ('returns the sum', function() {
@@ -149,7 +150,7 @@ suite ('sub', function() {
   test ('is a binary function', function() {
     eq (typeof sub) ('function');
     eq (sub.length) (1);
-    eq (sub.toString ()) ('sub :: Int -> Int -> Int');
+    eq (show (sub)) ('sub :: Int -> Int -> Int');
   });
 
   test ('returns the difference', function() {
@@ -170,7 +171,7 @@ suite ('mul', function() {
   test ('is a binary function', function() {
     eq (typeof mul) ('function');
     eq (mul.length) (1);
-    eq (mul.toString ()) ('mul :: Int -> Int -> Int');
+    eq (show (mul)) ('mul :: Int -> Int -> Int');
   });
 
   test ('returns the product', function() {
@@ -205,7 +206,7 @@ suite ('quot', function() {
   test ('is a binary function', function() {
     eq (typeof quot) ('function');
     eq (quot.length) (1);
-    eq (quot.toString ()) ('quot :: NonZeroInt -> Int -> Int');
+    eq (show (quot)) ('quot :: NonZeroInt -> Int -> Int');
   });
 
   test ('performs integer division truncated towards 0', function() {
@@ -222,7 +223,7 @@ suite ('rem', function() {
   test ('is a binary function', function() {
     eq (typeof rem) ('function');
     eq (rem.length) (1);
-    eq (rem.toString ()) ('rem :: NonZeroInt -> Int -> Int');
+    eq (show (rem)) ('rem :: NonZeroInt -> Int -> Int');
   });
 
   test ('returns the remainder', function() {
@@ -239,7 +240,7 @@ suite ('div', function() {
   test ('is a binary function', function() {
     eq (typeof div) ('function');
     eq (div.length) (1);
-    eq (div.toString ()) ('div :: NonZeroInt -> Int -> Int');
+    eq (show (div)) ('div :: NonZeroInt -> Int -> Int');
   });
 
   test ('performs integer division truncated towards -Infinity', function() {
@@ -258,7 +259,7 @@ suite ('mod', function() {
   test ('is a binary function', function() {
     eq (typeof mod) ('function');
     eq (mod.length) (1);
-    eq (mod.toString ()) ('mod :: NonZeroInt -> Int -> Int');
+    eq (show (mod)) ('mod :: NonZeroInt -> Int -> Int');
   });
 
   test ('returns the modulus', function() {
@@ -275,7 +276,7 @@ suite ('and', function() {
   test ('is a binary function', function() {
     eq (typeof and) ('function');
     eq (and.length) (1);
-    eq (and.toString ()) ('and :: Int -> Int -> Int');
+    eq (show (and)) ('and :: Int -> Int -> Int');
   });
 
   test ('returns the bitwise AND of its arguments', function() {
@@ -289,7 +290,7 @@ suite ('or', function() {
   test ('is a binary function', function() {
     eq (typeof or) ('function');
     eq (or.length) (1);
-    eq (or.toString ()) ('or :: Int -> Int -> Int');
+    eq (show (or)) ('or :: Int -> Int -> Int');
   });
 
   test ('returns the bitwise OR of its arguments', function() {
@@ -303,7 +304,7 @@ suite ('xor', function() {
   test ('is a binary function', function() {
     eq (typeof xor) ('function');
     eq (xor.length) (1);
-    eq (xor.toString ()) ('xor :: Int -> Int -> Int');
+    eq (show (xor)) ('xor :: Int -> Int -> Int');
   });
 
   test ('returns the bitwise XOR of its arguments', function() {
@@ -317,7 +318,7 @@ suite ('not', function() {
   test ('is a unary function', function() {
     eq (typeof not) ('function');
     eq (not.length) (1);
-    eq (not.toString ()) ('not :: Int -> Int');
+    eq (show (not)) ('not :: Int -> Int');
   });
 
   test ('returns bitwise NOT of its argument', function() {
@@ -334,7 +335,7 @@ suite ('even', function() {
   test ('is a unary function', function() {
     eq (typeof even) ('function');
     eq (even.length) (1);
-    eq (even.toString ()) ('even :: Int -> Boolean');
+    eq (show (even)) ('even :: Int -> Boolean');
   });
 
   test ('returns true if applied to an even integer', function() {
@@ -360,7 +361,7 @@ suite ('odd', function() {
   test ('is a unary function', function() {
     eq (typeof odd) ('function');
     eq (odd.length) (1);
-    eq (odd.toString ()) ('odd :: Int -> Boolean');
+    eq (show (odd)) ('odd :: Int -> Boolean');
   });
 
   test ('returns true if applied to an odd value', function() {

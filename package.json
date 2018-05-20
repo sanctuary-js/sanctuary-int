@@ -20,7 +20,7 @@
     "jsverify": "0.7.x",
     "sanctuary-scripts": "2.0.x",
     "sanctuary-show": "1.0.x",
-    "sanctuary-type-classes": "7.1.x"
+    "sanctuary-type-classes": "9.0.x"
   },
   "files": [
     "/LICENSE",

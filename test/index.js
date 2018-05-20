@@ -54,6 +54,8 @@ suite ('Int', function() {
     eq (Int.name) ('sanctuary-int/Int');
     eq (Int.url) ('https://github.com/sanctuary-js/sanctuary-int#Int');
     eq (Int.toString ()) ('Int');
+    eq (Z.equals (Int, Int)) (true);
+    eq (Z.equals (Int, NonZeroInt)) (false);
   });
 
   test ('represents integers in the range [-2^31 .. 2^31)', function() {
@@ -82,6 +84,8 @@ suite ('NonZeroInt', function() {
     eq (NonZeroInt.name) ('sanctuary-int/NonZeroInt');
     eq (NonZeroInt.url) ('https://github.com/sanctuary-js/sanctuary-int#NonZeroInt');
     eq (NonZeroInt.toString ()) ('NonZeroInt');
+    eq (Z.equals (NonZeroInt, NonZeroInt)) (true);
+    eq (Z.equals (NonZeroInt, Int)) (false);
   });
 
   test ('represents non-zero integers in the range [-2^31 .. 2^31)', function() {

@@ -1,30 +1,17 @@
 'use strict';
 
-var assert = require ('assert');
+const assert = require ('assert');
 
-var jsc = require ('jsverify');
-var $ = require ('sanctuary-def');
-var show = require ('sanctuary-show');
-var Z = require ('sanctuary-type-classes');
+const jsc = require ('jsverify');
+const $ = require ('sanctuary-def');
+const show = require ('sanctuary-show');
+const Z = require ('sanctuary-type-classes');
 
-var int = require ('..');
+const {
+  Int, NonZeroInt,
+  add, sub, mul, quot, rem, div, mod, and, or, xor, not, even, odd,
+} = require ('..');
 
-
-var Int = int.Int;
-var NonZeroInt = int.NonZeroInt;
-var add = int.add;
-var sub = int.sub;
-var mul = int.mul;
-var quot = int.quot;
-var rem = int.rem;
-var div = int.div;
-var mod = int.mod;
-var and = int.and;
-var or = int.or;
-var xor = int.xor;
-var not = int.not;
-var even = int.even;
-var odd = int.odd;
 
 //    eq :: a -> b -> Undefined !
 function eq(actual) {
@@ -36,22 +23,22 @@ function eq(actual) {
   };
 }
 
-//  isInt :: Any -> Boolean
-var isInt = $.test ($.env) (Int);
+//    isInt :: Any -> Boolean
+const isInt = $.test ($.env) (Int);
 
-//  isNonZeroInt :: Any -> Boolean
-var isNonZeroInt = $.test ($.env) (NonZeroInt);
+//    isNonZeroInt :: Any -> Boolean
+const isNonZeroInt = $.test ($.env) (NonZeroInt);
 
-//  maxInt :: Int
-var maxInt = Math.pow (2, 31) - 1;
+//    maxInt :: Int
+const maxInt = Math.pow (2, 31) - 1;
 
-//  minInt :: Int
-var minInt = -Math.pow (2, 31);
+//    minInt :: Int
+const minInt = -Math.pow (2, 31);
 
 
-suite ('Int', function() {
+suite ('Int', () => {
 
-  test ('is a nullary type', function() {
+  test ('is a nullary type', () => {
     eq (Int.name) ('sanctuary-int/Int');
     eq (Int.url) ('https://github.com/sanctuary-js/sanctuary-int#Int');
     eq (show (Int)) ('Int');
@@ -59,7 +46,7 @@ suite ('Int', function() {
     eq (Z.equals (Int, NonZeroInt)) (false);
   });
 
-  test ('represents integers in the range [-2^31 .. 2^31)', function() {
+  test ('represents integers in the range [-2^31 .. 2^31)', () => {
     eq (isInt (0)) (true);
     eq (isInt (1)) (true);
     eq (isInt (-0)) (true);
@@ -79,9 +66,9 @@ suite ('Int', function() {
 
 });
 
-suite ('NonZeroInt', function() {
+suite ('NonZeroInt', () => {
 
-  test ('is a nullary type', function() {
+  test ('is a nullary type', () => {
     eq (NonZeroInt.name) ('sanctuary-int/NonZeroInt');
     eq (NonZeroInt.url) ('https://github.com/sanctuary-js/sanctuary-int#NonZeroInt');
     eq (show (NonZeroInt)) ('NonZeroInt');
@@ -89,7 +76,7 @@ suite ('NonZeroInt', function() {
     eq (Z.equals (NonZeroInt, Int)) (false);
   });
 
-  test ('represents non-zero integers in the range [-2^31 .. 2^31)', function() {
+  test ('represents non-zero integers in the range [-2^31 .. 2^31)', () => {
     eq (isNonZeroInt (0)) (false);
     eq (isNonZeroInt (1)) (true);
     eq (isNonZeroInt (-0)) (false);
@@ -110,106 +97,106 @@ suite ('NonZeroInt', function() {
 
 });
 
-suite ('add', function() {
+suite ('add', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof add) ('function');
     eq (add.length) (1);
     eq (show (add)) ('add :: Int -> Int -> Int');
   });
 
-  test ('returns the sum', function() {
+  test ('returns the sum', () => {
     eq (add (1) (2)) (3);
   });
 
-  test ('has identity element (zero)', function() {
-    jsc.assert (jsc.forall (jsc.int32, function(x) {
-      return Z.equals (add (x) (0), x) &&
-             Z.equals (add (0) (x), x);
-    }));
+  test ('has identity element (zero)', () => {
+    jsc.assert (jsc.forall (jsc.int32, x =>
+      Z.equals (add (x) (0), x) &&
+      Z.equals (add (0) (x), x)
+    ));
   });
 
-  test ('is commutative', function() {
-    jsc.assert (jsc.forall (jsc.int16, jsc.int16, function(x, y) {
-      return Z.equals (add (x) (y),
-                       add (y) (x));
-    }));
+  test ('is commutative', () => {
+    jsc.assert (jsc.forall (jsc.int16, jsc.int16, (x, y) =>
+      Z.equals (add (x) (y),
+                add (y) (x))
+    ));
   });
 
-  test ('is associative', function() {
-    jsc.assert (jsc.forall (jsc.int16, jsc.int16, jsc.int16, function(x, y, z) {
-      return Z.equals (add (add (x) (y)) (z),
-                       add (x) (add (y) (z)));
-    }));
+  test ('is associative', () => {
+    jsc.assert (jsc.forall (jsc.int16, jsc.int16, jsc.int16, (x, y, z) =>
+      Z.equals (add (add (x) (y)) (z),
+                add (x) (add (y) (z)))
+    ));
   });
 
 });
 
-suite ('sub', function() {
+suite ('sub', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof sub) ('function');
     eq (sub.length) (1);
     eq (show (sub)) ('sub :: Int -> Int -> Int');
   });
 
-  test ('returns the difference', function() {
+  test ('returns the difference', () => {
     eq (sub (2) (1)) (-1);
   });
 
-  test ('has right identity element (zero)', function() {
-    jsc.assert (jsc.forall (jsc.int32, function(x) {
-      return Z.equals (sub (0) (x), x) &&
-             Z.equals (sub (x) (x), 0);
-    }));
+  test ('has right identity element (zero)', () => {
+    jsc.assert (jsc.forall (jsc.int32, x =>
+      Z.equals (sub (0) (x), x) &&
+      Z.equals (sub (x) (x), 0)
+    ));
   });
 
 });
 
-suite ('mul', function() {
+suite ('mul', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof mul) ('function');
     eq (mul.length) (1);
     eq (show (mul)) ('mul :: Int -> Int -> Int');
   });
 
-  test ('returns the product', function() {
+  test ('returns the product', () => {
     eq (mul (6) (7)) (42);
   });
 
-  test ('has identity element (one)', function() {
-    jsc.assert (jsc.forall (jsc.int32, function(x) {
-      return Z.equals (mul (x) (1), x) &&
-             Z.equals (mul (1) (x), x);
-    }));
+  test ('has identity element (one)', () => {
+    jsc.assert (jsc.forall (jsc.int32, x =>
+      Z.equals (mul (x) (1), x) &&
+      Z.equals (mul (1) (x), x)
+    ));
   });
 
-  test ('is commutative', function() {
-    jsc.assert (jsc.forall (jsc.int16, jsc.int16, function(x, y) {
-      return Z.equals (mul (x) (y),
-                       mul (y) (x));
-    }));
+  test ('is commutative', () => {
+    jsc.assert (jsc.forall (jsc.int16, jsc.int16, (x, y) =>
+      Z.equals (mul (x) (y),
+                mul (y) (x))
+    ));
   });
 
-  test ('is associative', function() {
-    jsc.assert (jsc.forall (jsc.int8, jsc.int8, jsc.int8, function(x, y, z) {
-      return Z.equals (mul (mul (x) (y)) (z),
-                       mul (x) (mul (y) (z)));
-    }));
+  test ('is associative', () => {
+    jsc.assert (jsc.forall (jsc.int8, jsc.int8, jsc.int8, (x, y, z) =>
+      Z.equals (mul (mul (x) (y)) (z),
+                mul (x) (mul (y) (z)))
+    ));
   });
 
 });
 
-suite ('quot', function() {
+suite ('quot', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof quot) ('function');
     eq (quot.length) (1);
     eq (show (quot)) ('quot :: NonZeroInt -> Int -> Int');
   });
 
-  test ('performs integer division truncated towards 0', function() {
+  test ('performs integer division truncated towards 0', () => {
     eq (quot (5) (42)) (8);
     eq (quot (-5) (42)) (-8);
     eq (quot (5) (-42)) (-8);
@@ -218,15 +205,15 @@ suite ('quot', function() {
 
 });
 
-suite ('rem', function() {
+suite ('rem', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof rem) ('function');
     eq (rem.length) (1);
     eq (show (rem)) ('rem :: NonZeroInt -> Int -> Int');
   });
 
-  test ('returns the remainder', function() {
+  test ('returns the remainder', () => {
     eq (rem (5) (42)) (2);
     eq (rem (-5) (42)) (2);
     eq (rem (5) (-42)) (-2);
@@ -235,15 +222,15 @@ suite ('rem', function() {
 
 });
 
-suite ('div', function() {
+suite ('div', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof div) ('function');
     eq (div.length) (1);
     eq (show (div)) ('div :: NonZeroInt -> Int -> Int');
   });
 
-  test ('performs integer division truncated towards -Infinity', function() {
+  test ('performs integer division truncated towards -Infinity', () => {
     eq (div (2) (7)) (3);
     eq (div (-2) (7)) (-4);
     eq (div (2) (-7)) (-4);
@@ -254,15 +241,15 @@ suite ('div', function() {
 
 });
 
-suite ('mod', function() {
+suite ('mod', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof mod) ('function');
     eq (mod.length) (1);
     eq (show (mod)) ('mod :: NonZeroInt -> Int -> Int');
   });
 
-  test ('returns the modulus', function() {
+  test ('returns the modulus', () => {
     eq (mod (5) (42)) (2);
     eq (mod (-5) (42)) (-3);
     eq (mod (5) (-42)) (3);
@@ -271,57 +258,57 @@ suite ('mod', function() {
 
 });
 
-suite ('and', function() {
+suite ('and', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof and) ('function');
     eq (and.length) (1);
     eq (show (and)) ('and :: Int -> Int -> Int');
   });
 
-  test ('returns the bitwise AND of its arguments', function() {
+  test ('returns the bitwise AND of its arguments', () => {
     eq (and (0b1100) (0b1010)) (0b1000);
   });
 
 });
 
-suite ('or', function() {
+suite ('or', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof or) ('function');
     eq (or.length) (1);
     eq (show (or)) ('or :: Int -> Int -> Int');
   });
 
-  test ('returns the bitwise OR of its arguments', function() {
+  test ('returns the bitwise OR of its arguments', () => {
     eq (or (0b1100) (0b1010)) ((0b1110));
   });
 
 });
 
-suite ('xor', function() {
+suite ('xor', () => {
 
-  test ('is a binary function', function() {
+  test ('is a binary function', () => {
     eq (typeof xor) ('function');
     eq (xor.length) (1);
     eq (show (xor)) ('xor :: Int -> Int -> Int');
   });
 
-  test ('returns the bitwise XOR of its arguments', function() {
+  test ('returns the bitwise XOR of its arguments', () => {
     eq (xor (0b1100) (0b1010)) ((0b0110));
   });
 
 });
 
-suite ('not', function() {
+suite ('not', () => {
 
-  test ('is a unary function', function() {
+  test ('is a unary function', () => {
     eq (typeof not) ('function');
     eq (not.length) (1);
     eq (show (not)) ('not :: Int -> Int');
   });
 
-  test ('returns bitwise NOT of its argument', function() {
+  test ('returns bitwise NOT of its argument', () => {
     eq (not (42)) (~42);
     eq (not (42)) (-43);
     eq (not (-1)) (~-1);
@@ -330,15 +317,15 @@ suite ('not', function() {
 
 });
 
-suite ('even', function() {
+suite ('even', () => {
 
-  test ('is a unary function', function() {
+  test ('is a unary function', () => {
     eq (typeof even) ('function');
     eq (even.length) (1);
     eq (show (even)) ('even :: Int -> Boolean');
   });
 
-  test ('returns true if applied to an even integer', function() {
+  test ('returns true if applied to an even integer', () => {
     eq (even (0)) (true);
     eq (even (-0)) (true);
     eq (even (2)) (true);
@@ -347,7 +334,7 @@ suite ('even', function() {
     eq (even (-2147483648)) (true);
   });
 
-  test ('returns false if applied to an odd integer', function() {
+  test ('returns false if applied to an odd integer', () => {
     eq (even (1)) (false);
     eq (even (-1)) (false);
     eq (even (2147483647)) (false);
@@ -356,22 +343,22 @@ suite ('even', function() {
 
 });
 
-suite ('odd', function() {
+suite ('odd', () => {
 
-  test ('is a unary function', function() {
+  test ('is a unary function', () => {
     eq (typeof odd) ('function');
     eq (odd.length) (1);
     eq (show (odd)) ('odd :: Int -> Boolean');
   });
 
-  test ('returns true if applied to an odd value', function() {
+  test ('returns true if applied to an odd value', () => {
     eq (odd (1)) (true);
     eq (odd (-1)) (true);
     eq (odd (2147483647)) (true);
     eq (odd (-2147483647)) (true);
   });
 
-  test ('returns false if applied to an even value', function() {
+  test ('returns false if applied to an even value', () => {
     eq (odd (0)) (false);
     eq (odd (-0)) (false);
     eq (odd (2)) (false);
@@ -382,26 +369,24 @@ suite ('odd', function() {
 
 });
 
-suite ('invariants', function() {
+suite ('invariants', () => {
 
-  test ('quot (y) (x) * y + rem (y) (x) === x', function() {
-    jsc.assert (jsc.forall (jsc.int32, jsc.int32, function(x, y) {
-      return y === 0 ||
-             Z.equals (quot (y) (x) * y + rem (y) (x), x);
-    }));
+  test ('quot (y) (x) * y + rem (y) (x) === x', () => {
+    jsc.assert (jsc.forall (jsc.int32, jsc.int32, (x, y) =>
+      y === 0 || Z.equals (quot (y) (x) * y + rem (y) (x), x)
+    ));
   });
 
-  test ('div (y) (x) * y + mod (y) (x) === x', function() {
-    jsc.assert (jsc.forall (jsc.int32, jsc.int32, function(x, y) {
-      return y === 0 ||
-             Z.equals (div (y) (x) * y + mod (y) (x), x);
-    }));
+  test ('div (y) (x) * y + mod (y) (x) === x', () => {
+    jsc.assert (jsc.forall (jsc.int32, jsc.int32, (x, y) =>
+      y === 0 || Z.equals (div (y) (x) * y + mod (y) (x), x)
+    ));
   });
 
-  test ('not (x) === -(x + 1)', function() {
-    jsc.assert (jsc.forall (jsc.int32, function(x) {
-      return Z.equals (not (x), -(x + 1));
-    }));
+  test ('not (x) === -(x + 1)', () => {
+    jsc.assert (jsc.forall (jsc.int32, x =>
+      Z.equals (not (x), -(x + 1))
+    ));
   });
 
 });

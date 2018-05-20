@@ -4,46 +4,46 @@ A collection of functions which operate on 32-bit signed integers.
 
 ## API
 
-<h4 name="Int"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L26">Int :: Type</a></code></h4>
+#### <a name="Int" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L29">`Int :: Type`</a>
 
 The Int type represents integers in the range [-2^31 .. 2^31).
 
-<h4 name="NonZeroInt"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L36">NonZeroInt :: Type</a></code></h4>
+#### <a name="NonZeroInt" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L37">`NonZeroInt :: Type`</a>
 
 The NonZeroInt type represents non-zero integers in the range
 [-2^31 .. 2^31).
 
-<h4 name="add"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L52">add :: Int -> Int -> Int</a></code></h4>
+#### <a name="add" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L46">`add :: Int -⁠> Int -⁠> Int`</a>
 
 Returns the sum of its two arguments.
 
 ```javascript
-> add(1, 2)
+> add (1) (2)
 3
 ```
 
-<h4 name="sub"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L65">sub :: Int -> Int -> Int</a></code></h4>
+#### <a name="sub" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L64">`sub :: Int -⁠> Int -⁠> Int`</a>
 
-Returns the result of subtracting its second argument from its first
+Returns the result of subtracting its first argument from its second
 argument.
 
 ```javascript
-> sub(1, 2)
--1
+> sub (1) (100)
+99
 ```
 
-<h4 name="mul"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L79">mul :: Int -> Int -> Int</a></code></h4>
+#### <a name="mul" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L83">`mul :: Int -⁠> Int -⁠> Int`</a>
 
 Returns the product of its two arguments.
 
 ```javascript
-> mul(6, 7)
+> mul (6) (7)
 42
 ```
 
-<h4 name="quot"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L92">quot :: Int -> NonZeroInt -> Int</a></code></h4>
+#### <a name="quot" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L101">`quot :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
-Returns the result of dividing its first argument by its second
+Returns the result of dividing its second argument by its first
 argument, truncating towards zero.
 
 Throws if the divisor is zero.
@@ -51,46 +51,46 @@ Throws if the divisor is zero.
 See also [`div`](#div).
 
 ```javascript
-> quot(42, 5)
+> quot (5) (42)
 8
 
-> quot(42, -5)
+> quot (-5) (42)
 -8
 
-> quot(-42, 5)
+> quot (5) (-42)
 -8
 
-> quot(-42, -5)
+> quot (-5) (-42)
 8
 ```
 
-<h4 name="rem"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L119">rem :: Int -> NonZeroInt -> Int</a></code></h4>
+#### <a name="rem" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L133">`rem :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
 Integer remainder, satisfying:
 
-    quot(x, y) * y + rem(x, y) === x
+    quot (y) (x) * y + rem (y) (x) === x
 
 Throws if the divisor is zero.
 
 See also [`mod`](#mod).
 
 ```javascript
-> rem(42, 5)
+> rem (5) (42)
 2
 
-> rem(42, -5)
+> rem (-5) (42)
 2
 
-> rem(-42, 5)
+> rem (5) (-42)
 -2
 
-> rem(-42, -5)
+> rem (-5) (-42)
 -2
 ```
 
-<h4 name="div"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L147">div :: Int -> NonZeroInt -> Int</a></code></h4>
+#### <a name="div" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L166">`div :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
-Returns the result of dividing its first argument by its second
+Returns the result of dividing its second argument by its first
 argument, truncating towards negative infinity.
 
 Throws if the divisor is zero.
@@ -98,99 +98,99 @@ Throws if the divisor is zero.
 See also [`quot`](#quot).
 
 ```javascript
-> div(42, 5)
+> div (5) (42)
 8
 
-> div(42, -5)
+> div (-5) (42)
 -9
 
-> div(-42, 5)
+> div (5) (-42)
 -9
 
-> div(-42, -5)
+> div (-5) (-42)
 8
 ```
 
-<h4 name="mod"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L174">mod :: Int -> NonZeroInt -> Int</a></code></h4>
+#### <a name="mod" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L198">`mod :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
 Integer modulus, satisfying:
 
-    div(x, y) * y + mod(x, y) === x
+    div (y) (x) * y + mod (y) (x) === x
 
 Throws if the divisor is zero.
 
 See also [`rem`](#rem).
 
 ```javascript
-> mod(42, 5)
+> mod (5) (42)
 2
 
-> mod(42, -5)
+> mod (-5) (42)
 -3
 
-> mod(-42, 5)
+> mod (5) (-42)
 3
 
-> mod(-42, -5)
+> mod (-5) (-42)
 -2
 ```
 
-<h4 name="and"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L202">and :: Int -> Int -> Int</a></code></h4>
+#### <a name="and" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L231">`and :: Int -⁠> Int -⁠> Int`</a>
 
 [Bitwise AND][&]. Returns an Int with a one at each bit position at
 which both arguments have a one.
 
 ```javascript
-> and(parseInt('1100', 2), parseInt('1010', 2))
-8
+> and (0b1100) (0b1010)
+0b1000
 ```
 
-<h4 name="or"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L216">or :: Int -> Int -> Int</a></code></h4>
+#### <a name="or" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L250">`or :: Int -⁠> Int -⁠> Int`</a>
 
 [Bitwise OR][|]. Returns an Int with a one at each bit position at
 which at least one argument has a one.
 
 ```javascript
-> or(parseInt('1100', 2), parseInt('1010', 2))
-14
+> or (0b1100) (0b1010)
+0b1110
 ```
 
-<h4 name="xor"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L230">xor :: Int -> Int -> Int</a></code></h4>
+#### <a name="xor" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L269">`xor :: Int -⁠> Int -⁠> Int`</a>
 
 [Bitwise XOR][^]. Returns an Int with a one at each bit position at
 which exactly one argument has a one.
 
 ```javascript
-> xor(parseInt('1100', 2), parseInt('1010', 2))
-6
+> xor (0b1100) (0b1010)
+0b0110
 ```
 
-<h4 name="not"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L244">not :: Int -> Int</a></code></h4>
+#### <a name="not" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L288">`not :: Int -⁠> Int`</a>
 
 [Bitwise NOT][~], satisfying:
 
-    not(x) === -(x + 1)
+    not (x) === -(x + 1)
 
 ```javascript
-> not(42)
+> not (42)
 -43
 ```
 
-<h4 name="even"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L259">even :: Int -> Boolean</a></code></h4>
+#### <a name="even" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L306">`even :: Int -⁠> Boolean`</a>
 
 Returns `true` if its argument is even; `false` if it is odd.
 
 ```javascript
-> even(42)
+> even (42)
 true
 ```
 
-<h4 name="odd"><code><a href="https://github.com/sanctuary-js/sanctuary-int/blob/v1.0.0/index.js#L272">odd :: Int -> Boolean</a></code></h4>
+#### <a name="odd" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L322">`odd :: Int -⁠> Boolean`</a>
 
 Returns `true` if its argument is odd; `false` if it is even.
 
 ```javascript
-> odd(42)
+> odd (42)
 false
 ```
 

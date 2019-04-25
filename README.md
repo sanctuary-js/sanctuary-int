@@ -4,16 +4,16 @@ A collection of functions which operate on 32-bit signed integers.
 
 ## API
 
-#### <a name="Int" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L29">`Int :: Type`</a>
+#### <a name="Int" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L26">`Int :: Type`</a>
 
 The Int type represents integers in the range [-2^31 .. 2^31).
 
-#### <a name="NonZeroInt" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L37">`NonZeroInt :: Type`</a>
+#### <a name="NonZeroInt" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L35">`NonZeroInt :: Type`</a>
 
 The NonZeroInt type represents non-zero integers in the range
 [-2^31 .. 2^31).
 
-#### <a name="add" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L46">`add :: Int -⁠> Int -⁠> Int`</a>
+#### <a name="add" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L45">`add :: Int -⁠> Int -⁠> Int`</a>
 
 Returns the sum of its two arguments.
 
@@ -22,7 +22,7 @@ Returns the sum of its two arguments.
 3
 ```
 
-#### <a name="sub" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L64">`sub :: Int -⁠> Int -⁠> Int`</a>
+#### <a name="sub" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L63">`sub :: Int -⁠> Int -⁠> Int`</a>
 
 Returns the result of subtracting its first argument from its second
 argument.
@@ -32,7 +32,7 @@ argument.
 99
 ```
 
-#### <a name="mul" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L83">`mul :: Int -⁠> Int -⁠> Int`</a>
+#### <a name="mul" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L82">`mul :: Int -⁠> Int -⁠> Int`</a>
 
 Returns the product of its two arguments.
 
@@ -41,7 +41,7 @@ Returns the product of its two arguments.
 42
 ```
 
-#### <a name="quot" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L101">`quot :: NonZeroInt -⁠> Int -⁠> Int`</a>
+#### <a name="quot" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L100">`quot :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
 Returns the result of dividing its second argument by its first
 argument, truncating towards zero.
@@ -64,7 +64,7 @@ See also [`div`](#div).
 8
 ```
 
-#### <a name="rem" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L133">`rem :: NonZeroInt -⁠> Int -⁠> Int`</a>
+#### <a name="rem" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L132">`rem :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
 Integer remainder, satisfying:
 
@@ -88,7 +88,7 @@ See also [`mod`](#mod).
 -2
 ```
 
-#### <a name="div" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L166">`div :: NonZeroInt -⁠> Int -⁠> Int`</a>
+#### <a name="div" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L165">`div :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
 Returns the result of dividing its second argument by its first
 argument, truncating towards negative infinity.
@@ -111,7 +111,7 @@ See also [`quot`](#quot).
 8
 ```
 
-#### <a name="mod" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L198">`mod :: NonZeroInt -⁠> Int -⁠> Int`</a>
+#### <a name="mod" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L197">`mod :: NonZeroInt -⁠> Int -⁠> Int`</a>
 
 Integer modulus, satisfying:
 
@@ -135,7 +135,7 @@ See also [`rem`](#rem).
 -2
 ```
 
-#### <a name="and" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L231">`and :: Int -⁠> Int -⁠> Int`</a>
+#### <a name="and" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L230">`and :: Int -⁠> Int -⁠> Int`</a>
 
 [Bitwise AND][&]. Returns an Int with a one at each bit position at
 which both arguments have a one.
@@ -145,7 +145,7 @@ which both arguments have a one.
 0b1000
 ```
 
-#### <a name="or" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L250">`or :: Int -⁠> Int -⁠> Int`</a>
+#### <a name="or" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L249">`or :: Int -⁠> Int -⁠> Int`</a>
 
 [Bitwise OR][|]. Returns an Int with a one at each bit position at
 which at least one argument has a one.
@@ -155,7 +155,7 @@ which at least one argument has a one.
 0b1110
 ```
 
-#### <a name="xor" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L269">`xor :: Int -⁠> Int -⁠> Int`</a>
+#### <a name="xor" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L268">`xor :: Int -⁠> Int -⁠> Int`</a>
 
 [Bitwise XOR][^]. Returns an Int with a one at each bit position at
 which exactly one argument has a one.
@@ -165,7 +165,7 @@ which exactly one argument has a one.
 0b0110
 ```
 
-#### <a name="not" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L288">`not :: Int -⁠> Int`</a>
+#### <a name="not" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L287">`not :: Int -⁠> Int`</a>
 
 [Bitwise NOT][~], satisfying:
 
@@ -176,7 +176,7 @@ which exactly one argument has a one.
 -43
 ```
 
-#### <a name="even" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L306">`even :: Int -⁠> Boolean`</a>
+#### <a name="even" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L305">`even :: Int -⁠> Boolean`</a>
 
 Returns `true` if its argument is even; `false` if it is odd.
 
@@ -185,7 +185,7 @@ Returns `true` if its argument is even; `false` if it is odd.
 true
 ```
 
-#### <a name="odd" href="https://github.com/sanctuary-js/sanctuary-int/blob/v2.0.0/index.js#L322">`odd :: Int -⁠> Boolean`</a>
+#### <a name="odd" href="https://github.com/sanctuary-js/sanctuary-int/blob/v3.0.0/index.js#L321">`odd :: Int -⁠> Boolean`</a>
 
 Returns `true` if its argument is odd; `false` if it is even.
 

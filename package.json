@@ -14,7 +14,7 @@
     "test": "npm run lint && sanctuary-test && npm run doctest"
   },
   "dependencies": {
-    "sanctuary-def": "0.17.x"
+    "sanctuary-def": "0.18.x"
   },
   "devDependencies": {
     "jsverify": "0.8.x",

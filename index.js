@@ -23,25 +23,24 @@
 
   var _ = {};
 
-  //  test :: Type -> Any -> Boolean
-  var test = $.test ([]);
-
   //# Int :: Type
   //.
   //. The Int type represents integers in the range [-2^31 .. 2^31).
   var Int = $.NullaryType
-    ('sanctuary-int/Int')
+    ('Int')
     ('https://github.com/sanctuary-js/sanctuary-int#Int')
-    (function(x) { return test ($.Number) (x) && (x | 0) === x; });
+    ([$.Number])
+    (function(x) { return (x | 0) === x; });
 
   //# NonZeroInt :: Type
   //.
   //. The NonZeroInt type represents non-zero integers in the range
   //. [-2^31 .. 2^31).
   var NonZeroInt = $.NullaryType
-    ('sanctuary-int/NonZeroInt')
+    ('NonZeroInt')
     ('https://github.com/sanctuary-js/sanctuary-int#NonZeroInt')
-    (function(x) { return test (Int) (x) && x !== 0; });
+    ([Int])
+    (function(x) { return x !== 0; });
 
   //# add :: Int -> Int -> Int
   //.
@@ -335,8 +334,7 @@
     impl: odd
   };
 
-  var env = $.env.concat ([Int, NonZeroInt]);
-  var def = $.create ({checkTypes: true, env: env});
+  var def = $.create ({checkTypes: true, env: $.env});
   return (Object.keys (_)).reduce (function(int, name) {
     int[name] = def (name) ({}) (_[name].types) (_[name].impl);
     return int;

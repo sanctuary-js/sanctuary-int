@@ -39,7 +39,7 @@ const minInt = -Math.pow (2, 31);
 suite ('Int', () => {
 
   test ('is a nullary type', () => {
-    eq (Int.name) ('sanctuary-int/Int');
+    eq (Int.name) ('Int');
     eq (Int.url) ('https://github.com/sanctuary-js/sanctuary-int#Int');
     eq (show (Int)) ('Int');
     eq (Z.equals (Int, Int)) (true);
@@ -69,7 +69,7 @@ suite ('Int', () => {
 suite ('NonZeroInt', () => {
 
   test ('is a nullary type', () => {
-    eq (NonZeroInt.name) ('sanctuary-int/NonZeroInt');
+    eq (NonZeroInt.name) ('NonZeroInt');
     eq (NonZeroInt.url) ('https://github.com/sanctuary-js/sanctuary-int#NonZeroInt');
     eq (show (NonZeroInt)) ('NonZeroInt');
     eq (Z.equals (NonZeroInt, NonZeroInt)) (true);

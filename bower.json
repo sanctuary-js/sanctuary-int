@@ -20,7 +20,7 @@
     "types"
   ],
   "dependencies": {
-    "sanctuary-def": "0.19.x"
+    "sanctuary-def": "0.20.x"
   },
   "ignore": [
     "/.circleci/",

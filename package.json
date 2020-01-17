@@ -19,7 +19,7 @@
   "devDependencies": {
     "jsverify": "0.8.x",
     "sanctuary-scripts": "4.0.x",
-    "sanctuary-show": "1.0.x",
+    "sanctuary-show": "2.0.x",
     "sanctuary-type-classes": "12.0.x"
   },
   "files": [

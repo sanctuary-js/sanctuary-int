@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "jsverify": "0.8.x",
-    "sanctuary-scripts": "4.0.x",
+    "sanctuary-scripts": "5.0.x",
     "sanctuary-show": "2.0.x",
     "sanctuary-type-classes": "12.1.x"
   },
@@ -27,5 +27,8 @@
     "/README.md",
     "/index.js",
     "/package.json"
-  ]
+  ],
+  "mocha": {
+    "ui": "tdd"
+  }
 }

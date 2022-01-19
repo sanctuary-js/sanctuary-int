@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require ('assert');
+const util = require ('util');
 
 const jsc = require ('jsverify');
 const $ = require ('sanctuary-def');
@@ -102,7 +103,7 @@ suite ('add', () => {
   test ('is a binary function', () => {
     eq (typeof add) ('function');
     eq (add.length) (1);
-    eq (show (add)) ('add :: Int -> Int -> Int');
+    eq (util.inspect (add)) ('add :: Int -> Int -> Int');
   });
 
   test ('returns the sum', () => {
@@ -137,7 +138,7 @@ suite ('sub', () => {
   test ('is a binary function', () => {
     eq (typeof sub) ('function');
     eq (sub.length) (1);
-    eq (show (sub)) ('sub :: Int -> Int -> Int');
+    eq (util.inspect (sub)) ('sub :: Int -> Int -> Int');
   });
 
   test ('returns the difference', () => {
@@ -158,7 +159,7 @@ suite ('mul', () => {
   test ('is a binary function', () => {
     eq (typeof mul) ('function');
     eq (mul.length) (1);
-    eq (show (mul)) ('mul :: Int -> Int -> Int');
+    eq (util.inspect (mul)) ('mul :: Int -> Int -> Int');
   });
 
   test ('returns the product', () => {
@@ -193,7 +194,7 @@ suite ('quot', () => {
   test ('is a binary function', () => {
     eq (typeof quot) ('function');
     eq (quot.length) (1);
-    eq (show (quot)) ('quot :: NonZeroInt -> Int -> Int');
+    eq (util.inspect (quot)) ('quot :: NonZeroInt -> Int -> Int');
   });
 
   test ('performs integer division truncated towards 0', () => {
@@ -210,7 +211,7 @@ suite ('rem', () => {
   test ('is a binary function', () => {
     eq (typeof rem) ('function');
     eq (rem.length) (1);
-    eq (show (rem)) ('rem :: NonZeroInt -> Int -> Int');
+    eq (util.inspect (rem)) ('rem :: NonZeroInt -> Int -> Int');
   });
 
   test ('returns the remainder', () => {
@@ -227,7 +228,7 @@ suite ('div', () => {
   test ('is a binary function', () => {
     eq (typeof div) ('function');
     eq (div.length) (1);
-    eq (show (div)) ('div :: NonZeroInt -> Int -> Int');
+    eq (util.inspect (div)) ('div :: NonZeroInt -> Int -> Int');
   });
 
   test ('performs integer division truncated towards -Infinity', () => {
@@ -246,7 +247,7 @@ suite ('mod', () => {
   test ('is a binary function', () => {
     eq (typeof mod) ('function');
     eq (mod.length) (1);
-    eq (show (mod)) ('mod :: NonZeroInt -> Int -> Int');
+    eq (util.inspect (mod)) ('mod :: NonZeroInt -> Int -> Int');
   });
 
   test ('returns the modulus', () => {
@@ -263,7 +264,7 @@ suite ('and', () => {
   test ('is a binary function', () => {
     eq (typeof and) ('function');
     eq (and.length) (1);
-    eq (show (and)) ('and :: Int -> Int -> Int');
+    eq (util.inspect (and)) ('and :: Int -> Int -> Int');
   });
 
   test ('returns the bitwise AND of its arguments', () => {
@@ -277,7 +278,7 @@ suite ('or', () => {
   test ('is a binary function', () => {
     eq (typeof or) ('function');
     eq (or.length) (1);
-    eq (show (or)) ('or :: Int -> Int -> Int');
+    eq (util.inspect (or)) ('or :: Int -> Int -> Int');
   });
 
   test ('returns the bitwise OR of its arguments', () => {
@@ -291,7 +292,7 @@ suite ('xor', () => {
   test ('is a binary function', () => {
     eq (typeof xor) ('function');
     eq (xor.length) (1);
-    eq (show (xor)) ('xor :: Int -> Int -> Int');
+    eq (util.inspect (xor)) ('xor :: Int -> Int -> Int');
   });
 
   test ('returns the bitwise XOR of its arguments', () => {
@@ -305,7 +306,7 @@ suite ('not', () => {
   test ('is a unary function', () => {
     eq (typeof not) ('function');
     eq (not.length) (1);
-    eq (show (not)) ('not :: Int -> Int');
+    eq (util.inspect (not)) ('not :: Int -> Int');
   });
 
   test ('returns bitwise NOT of its argument', () => {
@@ -322,7 +323,7 @@ suite ('even', () => {
   test ('is a unary function', () => {
     eq (typeof even) ('function');
     eq (even.length) (1);
-    eq (show (even)) ('even :: Int -> Boolean');
+    eq (util.inspect (even)) ('even :: Int -> Boolean');
   });
 
   test ('returns true if applied to an even integer', () => {
@@ -348,7 +349,7 @@ suite ('odd', () => {
   test ('is a unary function', () => {
     eq (typeof odd) ('function');
     eq (odd.length) (1);
-    eq (show (odd)) ('odd :: Int -> Boolean');
+    eq (util.inspect (odd)) ('odd :: Int -> Boolean');
   });
 
   test ('returns true if applied to an odd value', () => {

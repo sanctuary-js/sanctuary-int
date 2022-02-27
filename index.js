@@ -4,7 +4,7 @@
 //.
 //. ## API
 
-(function(f) {
+(f => {
 
   'use strict';
 
@@ -17,30 +17,30 @@
     self.sanctuaryInt = f (self.sanctuaryDef);
   }
 
-} (function($) {
+}) ($ => {
 
   'use strict';
 
-  var _ = {};
+  const _ = {};
 
   //# Int :: Type
   //.
   //. The Int type represents integers in the range [-2^31 .. 2^31).
-  var Int = $.NullaryType
+  const Int = $.NullaryType
     ('Int')
     ('https://github.com/sanctuary-js/sanctuary-int#Int')
     ([$.Number])
-    (function(x) { return (x | 0) === x; });
+    (x => (x | 0) === x);
 
   //# NonZeroInt :: Type
   //.
   //. The NonZeroInt type represents non-zero integers in the range
   //. [-2^31 .. 2^31).
-  var NonZeroInt = $.NullaryType
+  const NonZeroInt = $.NullaryType
     ('NonZeroInt')
     ('https://github.com/sanctuary-js/sanctuary-int#NonZeroInt')
     ([Int])
-    (function(x) { return x !== 0; });
+    (x => x !== 0);
 
   //# add :: Int -> Int -> Int
   //.
@@ -50,14 +50,10 @@
   //. > add (1) (2)
   //. 3
   //. ```
-  function add(n) {
-    return function(m) {
-      return m + n;
-    };
-  }
+  const add = n => m => m + n;
   _.add = {
     types: [Int, Int, Int],
-    impl: add
+    impl: add,
   };
 
   //# sub :: Int -> Int -> Int
@@ -69,14 +65,10 @@
   //. > sub (1) (100)
   //. 99
   //. ```
-  function sub(n) {
-    return function(m) {
-      return m - n;
-    };
-  }
+  const sub = n => m => m - n;
   _.sub = {
     types: [Int, Int, Int],
-    impl: sub
+    impl: sub,
   };
 
   //# mul :: Int -> Int -> Int
@@ -87,14 +79,10 @@
   //. > mul (6) (7)
   //. 42
   //. ```
-  function mul(n) {
-    return function(m) {
-      return m * n;
-    };
-  }
+  const mul = n => m => m * n;
   _.mul = {
     types: [Int, Int, Int],
-    impl: mul
+    impl: mul,
   };
 
   //# quot :: NonZeroInt -> Int -> Int
@@ -119,14 +107,10 @@
   //. > quot (-5) (-42)
   //. 8
   //. ```
-  function quot(n) {
-    return function(m) {
-      return (m / n) | 0;
-    };
-  }
+  const quot = n => m => (m / n) | 0;
   _.quot = {
     types: [NonZeroInt, Int, Int],
-    impl: quot
+    impl: quot,
   };
 
   //# rem :: NonZeroInt -> Int -> Int
@@ -152,14 +136,10 @@
   //. > rem (-5) (-42)
   //. -2
   //. ```
-  function rem(n) {
-    return function(m) {
-      return m % n;
-    };
-  }
+  const rem = n => m => m % n;
   _.rem = {
     types: [NonZeroInt, Int, Int],
-    impl: rem
+    impl: rem,
   };
 
   //# div :: NonZeroInt -> Int -> Int
@@ -184,14 +164,10 @@
   //. > div (-5) (-42)
   //. 8
   //. ```
-  function div(n) {
-    return function(m) {
-      return Math.floor (m / n);
-    };
-  }
+  const div = n => m => Math.floor (m / n);
   _.div = {
     types: [NonZeroInt, Int, Int],
-    impl: div
+    impl: div,
   };
 
   //# mod :: NonZeroInt -> Int -> Int
@@ -217,14 +193,10 @@
   //. > mod (-5) (-42)
   //. -2
   //. ```
-  function mod(n) {
-    return function(m) {
-      return (m % n + n) % n;
-    };
-  }
+  const mod = n => m => (m % n + n) % n;
   _.mod = {
     types: [NonZeroInt, Int, Int],
-    impl: mod
+    impl: mod,
   };
 
   //# and :: Int -> Int -> Int
@@ -236,14 +208,10 @@
   //. > and (0b1100) (0b1010)
   //. 0b1000
   //. ```
-  function and(n) {
-    return function(m) {
-      return m & n;
-    };
-  }
+  const and = n => m => m & n;
   _.and = {
     types: [Int, Int, Int],
-    impl: and
+    impl: and,
   };
 
   //# or :: Int -> Int -> Int
@@ -255,14 +223,10 @@
   //. > or (0b1100) (0b1010)
   //. 0b1110
   //. ```
-  function or(n) {
-    return function(m) {
-      return m | n;
-    };
-  }
+  const or = n => m => m | n;
   _.or = {
     types: [Int, Int, Int],
-    impl: or
+    impl: or,
   };
 
   //# xor :: Int -> Int -> Int
@@ -274,14 +238,10 @@
   //. > xor (0b1100) (0b1010)
   //. 0b0110
   //. ```
-  function xor(n) {
-    return function(m) {
-      return m ^ n;
-    };
-  }
+  const xor = n => m => m ^ n;
   _.xor = {
     types: [Int, Int, Int],
-    impl: xor
+    impl: xor,
   };
 
   //# not :: Int -> Int
@@ -294,12 +254,10 @@
   //. > not (42)
   //. -43
   //. ```
-  function not(n) {
-    return ~n;
-  }
+  const not = n => ~n;
   _.not = {
     types: [Int, Int],
-    impl: not
+    impl: not,
   };
 
   //# even :: Int -> Boolean
@@ -310,12 +268,10 @@
   //. > even (42)
   //. true
   //. ```
-  function even(n) {
-    return n % 2 === 0;
-  }
+  const even = n => n % 2 === 0;
   _.even = {
     types: [Int, $.Boolean],
-    impl: even
+    impl: even,
   };
 
   //# odd :: Int -> Boolean
@@ -326,21 +282,23 @@
   //. > odd (42)
   //. false
   //. ```
-  function odd(n) {
-    return n % 2 !== 0;
-  }
+  const odd = n => n % 2 !== 0;
   _.odd = {
     types: [Int, $.Boolean],
-    impl: odd
+    impl: odd,
   };
 
-  var def = $.create ({checkTypes: true, env: $.env});
-  return (Object.keys (_)).reduce (function(int, name) {
-    int[name] = def (name) ({}) (_[name].types) (_[name].impl);
+  {
+    const def = $.create ({checkTypes: true, env: $.env});
+    const int = {Int, NonZeroInt};
+    for (const name of Object.keys (_)) {
+      const {types, impl} = _[name];
+      int[name] = def (name) ({}) (types) (impl);
+    }
     return int;
-  }, {Int: Int, NonZeroInt: NonZeroInt});
+  }
 
-}));
+});
 
 //. [~]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_NOT
 //. [&]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_AND

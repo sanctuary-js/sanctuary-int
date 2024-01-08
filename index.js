@@ -8,7 +8,7 @@
 
   'use strict';
 
-  /* istanbul ignore else */
+  /* c8 ignore start */
   if (typeof module === 'object' && typeof module.exports === 'object') {
     module.exports = f (require ('sanctuary-def'));
   } else if (typeof define === 'function' && define.amd != null) {
@@ -16,6 +16,7 @@
   } else {
     self.sanctuaryInt = f (self.sanctuaryDef);
   }
+  /* c8 ignore stop */
 
 }) ($ => {
 

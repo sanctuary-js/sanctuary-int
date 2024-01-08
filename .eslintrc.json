@@ -3,10 +3,8 @@
   "extends": ["./node_modules/sanctuary-style/eslint.json"],
   "overrides": [
     {
-      "files": ["*.md"],
-      "rules": {
-        "no-undef": ["off"]
-      }
+      "files": ["index.js"],
+      "globals": {"define": "readonly", "module": "readonly", "require": "readonly", "self": "readonly"}
     }
   ]
 }

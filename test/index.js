@@ -1,18 +1,18 @@
-'use strict';
+import assert from 'assert';
+import util from 'util';
 
-const assert = require ('assert');
-const util = require ('util');
+import jsc from 'jsverify';
+import $ from 'sanctuary-def';
+import show from 'sanctuary-show';
+import Z from 'sanctuary-type-classes';
 
-const jsc = require ('jsverify');
-const $ = require ('sanctuary-def');
-const show = require ('sanctuary-show');
-const Z = require ('sanctuary-type-classes');
+import int from '../index.js';
+
 
 const {
   Int, NonZeroInt,
   add, sub, mul, quot, rem, div, mod, and, or, xor, not, even, odd,
-} = require ('..');
-
+} = int;
 
 //    eq :: a -> b -> Undefined !
 function eq(actual) {

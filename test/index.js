@@ -1,5 +1,5 @@
-import {deepStrictEqual as eq} from 'assert';
-import util from 'util';
+import {deepStrictEqual as eq} from 'node:assert';
+import util from 'node:util';
 
 import jsc from 'jsverify';
 import test from 'oletus';
